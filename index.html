@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+
+    <title>
+        Teejei & Judith | Wedding Invitation
+    </title>
+
+    <meta name="description"
+        content="Together with their families, Teejei De Celis and Judith Marie Lomibao invite you to celebrate their wedding on December 20, 2026.">
+
+    <meta property="og:title" content="Teejei & Judith Wedding Invitation">
+
+    <meta property="og:description" content="Join us on our special day.">
+
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- ====================================== -->
+    <!-- LOADING SCREEN -->
+    <!-- ====================================== -->
+
+    <div id="loader">
+        <div class="loader-content">
+
+            <div class="envelope">
+
+                <div class="envelope-back"></div>
+
+                <div class="envelope-flap"></div>
+
+                <div class="letter">
+
+                    <div class="loader-monogram">
+                        <img src="image/logo.png" alt="Teejei and Judith Wedding Logo" class="navbar-logo">
+                    </div>
+
+                    <p>Preparing Your Invitation...</p>
+
+                </div>
+
+                <div class="envelope-front"></div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ====================================== -->
+    <!-- PETALS -->
+    <!-- ====================================== -->
+
+    <canvas id="petalCanvas"></canvas>
+
+    <!-- ====================================== -->
+    <!-- MUSIC BUTTON -->
+    <!-- ====================================== -->
+
+    <!-- ====================================== -->
+    <!-- MUSIC & SCROLL TOP -->
+    <!-- ====================================== -->
+
+    <button id="musicToggle" class="music-btn" aria-label="Toggle Music">
+        <i class="fa-solid fa-music"></i>
+    </button>
+
+    <button id="scrollTopBtn" aria-label="Scroll to Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <audio id="bgMusic" src="audio/enchanted_intrumental.mp3" loop></audio>
+
+    <!-- ====================================== -->
+    <!-- NAVIGATION -->
+    <!-- ====================================== -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <div class="nav-logo">
+                <img src="image/logo.png" alt="Teejei and Judith Wedding Logo" class="navbar-logo">
+            </div>
+
+            <ul class="nav-links">
+
+                <li>
+                    <a href="#home">Home</a>
+                </li>
+
+                <li>
+                    <a href="#countdown">Countdown</a>
+                </li>
+
+                <li>
+                    <a href="#story">Story</a>
+                </li>
+
+                <li>
+                    <a href="#details">Details</a>
+                </li>
+
+                <li>
+                    <a href="#timeline">Timeline</a>
+                </li>
+
+                <li>
+                    <a href="#venue">Venue</a>
+                </li>
+
+                <li>
+                    <a href="#entourage">Entourage</a>
+                </li>
+
+                <li>
+                    <a href="#gallery">Gallery</a>
+                </li>
+
+                <li>
+                    <a href="#rsvp">RSVP</a>
+                </li>
+
+            </ul>
+
+            <button class="mobile-menu-btn">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+        </nav>
+
+    </header>
+
+    <!-- ====================================== -->
+    <!-- HERO -->
+    <!-- ====================================== -->
+
+    <section id="home" class="hero">
+
+        <div class="hero-overlay"></div>
+
+        <div class="watermark">
+            <img src="image/logo.png" alt="Teejei and Judith Wedding Monogram" class="watermark-img">
+        </div>
+
+        <div class="hero-content">
+
+            <span class="hero-subtitle">
+                WE ARE GETTING MARRIED
+            </span>
+
+            <div class="hero-monogram">
+                <img src="image/monogram.png" alt="Teejei and Judith Wedding Monogram" class="hero-logo">
+            </div>
+
+            <h2 class="couple-name">
+                <span class="groom-name">Teejei De Celis</span>
+                <span class="ampersand">&</span>
+                <span class="bride-name">Judith Marie Lomibao</span>
+            </h2>
+            <p class="hero-date">
+                December 20, 2026
+            </p>
+
+            <a href="#countdown" class="btn-primary">
+                Open Invitation
+            </a>
+
+            <p class="bible-verse">
+                “Love is patient; love is kind. It does not envy, it does not boast,
+                it is not proud. It always protects, always trusts, always hopes,
+                always perseveres.”
+                <br>
+                <span>— 1 Corinthians 13:4–7</span>
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- ====================================== -->
+    <!-- COUNTDOWN -->
+    <!-- ====================================== -->
+
+    <section id="countdown" class="section">
+
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+                <span>Save the Date</span>
+                <h2>Counting Down to Our Special Day</h2>
+                <p>We can't wait to celebrate our wedding with you.</p>
+            </div>
+
+            <div id="countdownTimer" class="countdown-grid" data-aos="zoom-in">
+
+                <div class="count-box">
+                    <span id="days">00</span>
+                    <small>Days</small>
+                </div>
+
+                <div class="count-box">
+                    <span id="hours">00</span>
+                    <small>Hours</small>
+                </div>
+
+                <div class="count-box">
+                    <span id="minutes">00</span>
+                    <small>Minutes</small>
+                </div>
+
+                <div class="count-box">
+                    <span id="seconds">00</span>
+                    <small>Seconds</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ====================================== -->
+    <!-- OUR STORY -->
+    <!-- ====================================== -->
+
+    <section id="story" class="section story-section">
+
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+
+                <span>Our Journey</span>
+
+                <h2>
+                    Our Story
+                </h2>
+
+            </div>
+
+            <div class="story-timeline">
+
+                <div class="story-item" data-aos="fade-right">
+
+                    <div class="story-card">
+                        <div class="story-icon">
+                            <i class="fa-solid fa-handshake"></i>
+                        </div>
+
+                        <h3>
+                            First Meeting
+                        </h3>
+
+                        <p>
+                            “We were introduced through a mutual connection—an unexpected meeting that quietly started
+                            everything.”
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="story-item" data-aos="fade-left">
+
+                    <div class="story-card">
+                        <div class="story-icon">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+
+                        <h3>
+                            First Conversations
+                        </h3>
+
+                        <p>
+                            “It began with late-night talks that slowly turned into something deeper, until we both
+                            realized we had fallen for each other.”
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="story-item" data-aos="fade-right">
+
+                    <div class="story-card">
+                        <div class="story-icon">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <h3>
+                            First Official Moment
+                        </h3>
+
+                        <p>
+                            “One morning at a simple place, she said yes to us being together, marking the quiet
+                            beginning of our journey.”
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="story-item" data-aos="fade-left">
+
+                    <div class="story-card">
+                        <div class="story-icon">
+                            <i class="fa-solid fa-ring"></i>
+                        </div>
+
+                        <h3>
+                            The Proposal
+                        </h3>
+
+                        <p>
+                            “Two years later, at Find Me Café during our second anniversary, we shared a moment that
+                            marked our forever—an exchange of love, promise, and a ‘yes’ to a lifetime together.”
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="story-item" data-aos="fade-right">
+
+                    <div class="story-card">
+                        <div class="story-icon">
+                            <i class="fa-solid fa-church"></i>
+                        </div>
+
+                        <h3>
+                            Wedding Day
+                        </h3>
+
+                        <p>
+                            “The day we begin our forever, celebrating the love that brought us here and the life we are
+                            about to build together.”
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ====================================== -->
+    <!-- DETAILS -->
+    <!-- ====================================== -->
+
+    <section id="details" class="section details-section">
+
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+                <span class="subtitle">The Celebration</span>
+                <h2>Wedding Details</h2>
+                <div class="title-divider"></div>
+            </div>
+
+            <div class="details-grid">
+
+                <!-- Ceremony -->
+                <div class="detail-card" data-aos="fade-up">
+
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-church"></i>
+                    </div>
+
+                    <h3>Ceremony</h3>
+
+                    <p class="highlight">December 20, 2026</p>
+                    <p>2:00 PM</p>
+
+                    <p class="location">
+                        Kusina Nen Laki Digno Garden
+                    </p>
+
+                </div>
+
+                <!-- Reception -->
+                <div class="detail-card" data-aos="fade-up" data-aos-delay="150">
+
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-champagne-glasses"></i>
+                    </div>
+
+                    <h3>Reception</h3>
+
+                    <p class="highlight">Celebration to Follow</p>
+
+                    <p class="location">
+                        Kusina Nen Laki Digno Garden
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- GLOBAL VIEW DIRECTION BUTTON (OUTSIDE CARDS) -->
+            <div class="details-footer" data-aos="fade-up">
+
+                <div class="icon-circle">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+
+                <p class="venue-note">
+                    Tebeng Rd, Dagupan City, 2400 Pangasinan
+                </p>
+
+                <a href="https://maps.google.com/?q=16.030709880965837,120.35740547801097" target="_blank"
+                    class="btn-primary venue-btn">
+
+                    <i class="fa-solid fa-location-arrow"></i>
+                    View Directions
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Remaining Sections Continue In Part 2 -->
+    <!-- Timeline -->
+    <!-- Venue -->
+    <!-- Entourage -->
+    <!-- Gallery -->
+    <!-- RSVP -->
+    <!-- Thank You -->
+    <!-- Lightbox -->
+    <!-- RSVP Modal -->
+    <!-- ====================================== -->
+    <!-- TIMELINE OF EVENTS -->
+    <!-- ====================================== -->
+
+    <!-- <section id="timeline" class="section timeline-section">
+
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+
+                <span>Wedding Program</span>
+
+                <h2>
+                    Timeline of Events
+                </h2>
+
+            </div>
+
+            <div class="event-timeline">
+
+                <div class="event-item" data-aos="fade-right">
+                    <div class="event-icon">
+                        <i class="fa-solid fa-door-open"></i>
+                    </div>
+                    <div class="event-content">
+                        <h3>1:00 PM</h3>
+                        <p>Guest Arrival</p>
+                    </div>
+                </div>
+
+                <div class="event-item" data-aos="fade-left">
+                    <div class="event-icon">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>
+                    <div class="event-content">
+                        <h3>1:30 PM</h3>
+                        <p>Registration</p>
+                    </div>
+                </div>
+
+                <div class="event-item" data-aos="fade-right">
+                    <div class="event-icon">
+                        <i class="fa-solid fa-ring"></i>
+                    </div>
+                    <div class="event-content">
+                        <h3>2:00 PM</h3>
+                        <p>Wedding Ceremony</p>
+                    </div>
+                </div>
+
+                <div class="event-item" data-aos="fade-left">
+                    <div class="event-icon">
+                        <i class="fa-solid fa-camera"></i>
+                    </div>
+                    <div class="event-content">
+                        <h3>3:30 PM</h3>
+                        <p>Photo Session</p>
+                    </div>
+                </div>
+
+                <div class="event-item" data-aos="fade-right">
+                    <div class="event-icon">
+                        <i class="fa-solid fa-martini-glass-citrus"></i>
+                    </div>
+                    <div class="event-content">
+                        <h3>4:30 PM</h3>
+                        <p>Cocktail Hour</p>
+                    </div>
+                </div>
+
+                <div class="event-item" data-aos="fade-left">
+                    <div class="event-icon">
+                        <i class="fa-solid fa-champagne-glasses"></i>
+                    </div>
+                    <div class="event-content">
+                        <h3>5:00 PM</h3>
+                        <p>Reception Proper</p>
+                    </div>
+                </div>
+
+                <div class="event-item" data-aos="fade-right">
+                    <div class="event-icon">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <div class="event-content">
+                        <h3>6:00 PM</h3>
+                        <p>Dinner</p>
+                    </div>
+                </div>
+
+                <div class="event-item" data-aos="fade-left">
+                    <div class="event-icon">
+                        <i class="fa-solid fa-microphone"></i>
+                    </div>
+                    <div class="event-content">
+                        <h3>7:00 PM</h3>
+                        <p>Program</p>
+                    </div>
+                </div>
+
+                <div class="event-item" data-aos="fade-right">
+                    <div class="event-icon">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <div class="event-content">
+                        <h3>8:00 PM</h3>
+                        <p>First Dance</p>
+                    </div>
+                </div>
+
+                <div class="event-item" data-aos="fade-left">
+                    <div class="event-icon">
+                        <i class="fa-solid fa-music"></i>
+                    </div>
+                    <div class="event-content">
+                        <h3>9:00 PM</h3>
+                        <p>Open Dance Floor</p>
+                    </div>
+                </div>
+
+                <div class="event-item" data-aos="fade-right">
+                    <div class="event-icon">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="event-content">
+                        <h3>10:00 PM</h3>
+                        <p>Closing Remarks</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section> -->
+
+    <!-- ====================================== -->
+    <!-- GETTING THERE -->
+    <!-- ====================================== -->
+
+    <!-- <section id="venue" class="venue-section parallax-section">
+
+    <div class="venue-overlay"></div>
+
+    <div class="container">
+
+        <div class="section-title light" data-aos="fade-up">
+
+            <span>Location</span>
+
+            <h2>Getting There</h2>
+
+        </div>
+
+        <div class="venue-info" data-aos="fade-left">
+
+            <h3>Kusina Nen Laki Digno Garden</h3>
+
+            <p>
+                Both our ceremony and reception will be held at
+                Kusina Nen Laki Digno Garden in Sta. Barbara, Pangasinan.
+                We can't wait to celebrate this special day with you.
+            </p>
+
+            <p class="venue-note">
+                Please arrive at least 30 minutes before the ceremony
+                to allow time for parking and seating.
+            </p>
+
+            <a href="https://maps.google.com/?q=16.030709880965837,120.35740547801097"
+               target="_blank"
+               class="btn-primary">
+
+                <i class="fa-solid fa-location-arrow"></i>
+
+                View Directions
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section> -->
+
+    <!-- ====================================== -->
+    <!-- ENTOURAGE -->
+    <!-- ====================================== -->
+
+    <section id="entourage" class="section">
+
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+
+                <!-- <span>Wedding Party</span> -->
+                <span>Standing Beside Us</span>
+                <h2>
+                    Entourage
+                </h2>
+
+            </div>
+
+            <div class="entourage-grid">
+
+                <div class="entourage-card">
+                    <h3>Parents of the Groom</h3>
+                    <p>Mr. & Mrs. De Celis</p>
+                </div>
+
+                <div class="entourage-card">
+                    <h3>Parents of the Bride</h3>
+                    <p>Mr. & Mrs. Lomibao</p>
+                </div>
+
+                <div class="entourage-card">
+                    <h3>Principal Sponsors</h3>
+                    <p>Sponsor 1</p>
+                    <p>Sponsor 2</p>
+                    <p>Sponsor 3</p>
+                    <p>Sponsor 4</p>
+                </div>
+
+                <div class="entourage-card">
+                    <h3>Best Man</h3>
+                    <p>John Santos</p>
+                </div>
+
+                <div class="entourage-card">
+                    <h3>Maid of Honor</h3>
+                    <p>Jane Cruz</p>
+                </div>
+
+                <div class="entourage-card">
+                    <h3>Groomsmen</h3>
+                    <p>Michael Reyes</p>
+                    <p>Joseph Garcia</p>
+                    <p>David Cruz</p>
+                </div>
+
+                <div class="entourage-card">
+                    <h3>Bridesmaids</h3>
+                    <p>Anna Santos</p>
+                    <p>Maria Lopez</p>
+                    <p>Christine Ramos</p>
+                </div>
+
+                <div class="entourage-card">
+                    <h3>Ring Bearer</h3>
+                    <p>Juan Miguel Lomibao</p>
+                </div>
+
+                <div class="entourage-card">
+                    <h3>Coin Bearer</h3>
+                    <p>Axel Blake D Andrada</p>
+                </div>
+
+                <div class="entourage-card">
+                    <h3>Bible Bearer</h3>
+                    <p>Azriel Blake D Andrada</p>
+                </div>
+
+                <div class="entourage-card">
+                    <h3>Flower Girls</h3>
+                    <p>Sophy Montilla</p>
+                    <p>Maritonie De Vera</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ====================================== -->
+    <!-- GALLERY -->
+    <!-- ====================================== -->
+
+    <!-- <section id="gallery" class="section gallery-section">
+
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+
+                <span>Memories</span>
+
+                <h2>
+                    Gallery
+                </h2>
+
+            </div>
+
+            <div class="masonry-gallery">
+
+                <img class="gallery-item" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1000">
+
+                <img class="gallery-item" src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1000">
+
+                <img class="gallery-item" src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1000">
+
+                <img class="gallery-item" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1000">
+
+                <img class="gallery-item" src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=1000">
+
+                <img class="gallery-item" src="https://images.unsplash.com/photo-1525253086316-d0c936c814f8?w=1000">
+
+            </div>
+
+        </div>
+
+    </section> -->
+
+
+
+    <!-- ====================================== -->
+    <!-- RSVP -->
+    <!-- ====================================== -->
+
+    <section id="rsvp" class="section rsvp-section">
+
+        <div class="container">
+
+            <!-- SECTION HEADER -->
+            <div class="section-title" data-aos="fade-up">
+
+                <span class="subtitle">Join Us</span>
+
+                <h2>RSVP</h2>
+
+                <div class="title-divider"></div>
+
+            </div>
+
+            <!-- RSVP CARD -->
+            <div class="rsvp-card" data-aos="fade-up">
+
+                <p class="rsvp-text">
+                    We would be honored to celebrate this special day with you.
+                    Your presence means the world to us.
+                </p>
+
+                <p class="rsvp-question">
+                    Will you be joining us?
+                </p>
+
+                <!-- ACTION BUTTON -->
+                <button id="openRSVPBtn" class="rsvp-btn">
+                    Confirm Attendance
+                </button>
+
+                <!-- ATTIRE -->
+                <div class="info-block">
+
+                    <p class="info-title">Attire</p>
+
+                    <p class="info-text">
+                        Please wear formal attire in our wedding palette:
+                    </p>
+
+                    <div class="color-palette">
+                        <span class="color-swatch beige" title="Beige"></span>
+                        <span class="color-swatch champagne" title="Champagne"></span>
+                        <span class="color-swatch cream" title="Cream"></span>
+                        <span class="color-swatch earth" title="Earth Tones"></span>
+                    </div>
+
+                </div>
+
+                <!-- GIFTS -->
+                <div class="info-block">
+
+                    <p class="info-title">Gifts</p>
+
+                    <p class="info-text">
+                        Your presence is the greatest gift we could ask for.
+                        If you wish to bless us further, a monetary gift would be sincerely appreciated.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ====================================== -->
+    <!-- RSVP MODAL -->
+    <!-- ====================================== -->
+
+    <div id="rsvpModal" class="modal">
+
+        <div class="modal-content">
+
+            <button class="close-modal" id="closeRSVPModal">&times;</button>
+
+            <h2>RSVP Form</h2>
+
+            <p class="modal-subtitle">
+                Kindly let us know your response
+            </p>
+
+            <form id="rsvpForm">
+
+                <input type="text" placeholder="Full Name" required>
+
+                <input type="text" placeholder="Contact Number">
+
+                <input type="number" placeholder="Number of Guests" min="1">
+
+                <select required>
+                    <option value="">Attendance</option>
+                    <option value="attending">Attending</option>
+                    <option value="not_attending">Not Attending</option>
+                </select>
+
+                <input type="text" placeholder="Meal Preference (Optional)">
+
+                <input type="text" placeholder="Song Request (Optional)">
+
+                <textarea rows="4" placeholder="Message for the Couple (Optional)"></textarea>
+
+                <button type="submit" class="rsvp-submit">
+                    Submit RSVP
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- ====================================== -->
+    <!-- LIGHTBOX -->
+    <!-- ====================================== -->
+
+    <div id="lightbox" class="lightbox">
+
+        <span class="lightbox-close">
+            ×
+        </span>
+
+        <img id="lightboxImage" src="" alt="">
+
+    </div>
+
+    <!-- ====================================== -->
+    <!-- THANK YOU -->
+    <!-- ====================================== -->
+
+    <section class="thankyou-section">
+
+        <div class="container">
+
+            <div class="thankyou-card" data-aos="fade-up">
+
+                <h2>Thank You</h2>
+
+                <div class="title-divider"></div>
+
+                <p class="thankyou-text">
+                    We are truly grateful to have shared this special day with you.
+                    Your presence meant more to us than words can express.
+                </p>
+
+                <!-- QR SECTION -->
+                <div class="qr-section">
+
+                    <p class="qr-title">Share Your Memories</p>
+
+                    <p class="qr-text">
+                        Scan the QR code to upload your photos and help us preserve these moments.
+                    </p>
+
+                    <div class="qr-box" id="qrBox">
+                        <img src="./image/QR.png" alt="QR Code">
+                    </div>
+
+                </div>
+
+
+
+                <h3 class="thankyou-signature cursive-signature">
+                    Teejei & Judith Marie
+                </h3>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ====================================== -->
+    <!-- FOOTER -->
+    <!-- ====================================== -->
+
+
+    <footer class="site-footer">
+
+        <div class="footer-content">
+
+            <p class="footer-line">
+                <img src="image/monogram.png" alt="TJ and JM Monogram" class="footer-monogram">
+                <span>December 20, 2026</span>
+            </p>
+
+
+        </div>
+    </footer>
+    <!-- ====================================== -->
+    <!-- CONFETTI CONTAINER -->
+    <!-- ====================================== -->
+
+    <div id="confetti-container"></div>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+
+    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
+</body>
+
+</html>
