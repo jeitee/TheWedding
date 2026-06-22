@@ -1681,9 +1681,8 @@ button {
 .color-swatch.earth {
     background: var(--artichoke);
 }
-
 /* ==========================================================
-   MODAL
+   MODAL (BASE)
 ========================================================== */
 
 .modal {
@@ -1714,6 +1713,8 @@ button {
 .modal-content {
     width: 90%;
     max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
 
     background: #fff;
     border-radius: 30px;
@@ -1731,6 +1732,7 @@ button {
     transform: translateY(0);
 }
 
+/* CLOSE BUTTON */
 .close-modal {
     position: absolute;
     top: 18px;
@@ -1751,7 +1753,17 @@ button {
     transform: rotate(90deg);
 }
 
-/* FORM */
+/* SUBTITLE */
+.modal-subtitle {
+    font-size: .95rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+/* ==========================================================
+   FORM INPUTS
+========================================================== */
+
 .modal-content input,
 .modal-content textarea,
 .modal-content select {
@@ -1769,6 +1781,10 @@ button {
     transition: .25s ease;
 }
 
+.modal-content textarea {
+    resize: none;
+}
+
 .modal-content input:focus,
 .modal-content textarea:focus,
 .modal-content select:focus {
@@ -1777,9 +1793,53 @@ button {
     box-shadow: 0 0 0 3px rgba(212, 175, 55, .15);
 }
 
-.modal-content textarea {
-    resize: none;
+/* ==========================================================
+   RSVP SEATS (DYNAMIC)
+========================================================== */
+
+#guestSeatsContainer {
+    margin-bottom: 20px;
 }
+
+.seat-group {
+    display: flex;
+    flex-direction: column;
+
+    padding: 14px;
+    margin-bottom: 12px;
+
+    border: 1px solid rgba(0, 0, 0, .08);
+    border-radius: 14px;
+
+    background: #fafafa;
+
+    transition: .2s ease;
+}
+
+.seat-group:hover {
+    border-color: rgba(212, 175, 55, .4);
+    transform: translateY(-2px);
+}
+
+.seat-group label {
+    font-size: .85rem;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+}
+
+/* attendance checkbox row */
+.seat-attendance {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: .9rem;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================
+   SUBMIT BUTTON
+========================================================== */
 
 /* SUBMIT BUTTON */
 .rsvp-submit {
@@ -2626,4 +2686,119 @@ button {
     width: 280px;
     z-index: 1000;
     gap: 15px;
+}
+
+/* ==========================================================
+   RSVP DROPDOWN (ATTENDING STATUS)
+========================================================== */
+
+.attending {
+    width: 100%;
+    margin-top: 10px;
+
+    padding: 10px 12px;
+    border-radius: 10px;
+
+    border: 1px solid rgba(163, 184, 153, 0.35);
+    background: rgba(255, 255, 255, 0.85);
+
+    font-size: 13px;
+    color: #3d4a3b;
+
+    outline: none;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* custom dropdown arrow */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236f7f6b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 14px;
+}
+
+.attending:focus {
+    border-color: #a3b899;
+    box-shadow: 0 0 0 3px rgba(163, 184, 153, 0.2);
+}
+
+/* hover effect */
+.attending:hover {
+    transform: translateY(-1px);
+}
+
+/* ==========================================================
+   OPTION COLORS (visual hint)
+========================================================== */
+
+.attending option[value="yes"] {
+    color: #2f6f3e;
+}
+
+.attending option[value="no"] {
+    color: #8b3a3a;
+}
+
+.attending option[value="pending"] {
+    color: #6f7f6b;
+}
+
+#toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    left: auto;
+
+    max-width: 400px;
+    width: calc(100% - 40px);
+
+    padding: 14px 18px;
+    border-radius: 10px;
+
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all .3s ease;
+
+    z-index: 9999;
+    pointer-events: none;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+#toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#toast.success {
+    background: var(--sage);
+}
+
+#toast.error {
+    background: var(--gold-dark);
+}
+
+@media (max-width: 480px) {
+    #toast {
+        left: 50%;
+        right: auto;
+        bottom: 20px;
+        top: auto;
+
+        transform: translateX(-50%) translateY(20px);
+        width: calc(100% - 24px);
+        max-width: 400px;
+    }
+
+    #toast.show {
+        transform: translateX(-50%) translateY(0);
+    }
 }

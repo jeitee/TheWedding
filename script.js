@@ -21,28 +21,26 @@ AOS.init({
 window.addEventListener("load", () => {
     const loader = document.getElementById("loader");
 
-    // Stage 1: reveal envelope moment
+    // 🔥 PRELOAD RSVP DATA HERE (NEW)
+    preloadRSVP().catch(console.error);
+
     setTimeout(() => {
         loader.classList.add("stage-open");
     }, 1200);
 
-    // Stage 2: hold cinematic moment
     setTimeout(() => {
         loader.classList.add("stage-hold");
     }, 2600);
 
-    // Stage 3: fade out like film cut
     setTimeout(() => {
         loader.style.transition = "opacity 1.2s ease";
         loader.style.opacity = "0";
     }, 3800);
 
-    // Stage 4: remove
     setTimeout(() => {
         loader.style.display = "none";
     }, 5200);
 });
-
 /* ==========================================================
    COUNTDOWN
 ========================================================== */
@@ -215,66 +213,214 @@ if (lightbox) {
 ========================================================== */
 
 const openRSVP = document.getElementById("openRSVPBtn");
-const modal = document.getElementById("rsvpModal");
+const rsvpModal = document.getElementById("rsvpModal");
 const closeModal = document.querySelector(".close-modal");
 
-if (openRSVP && modal) {
-    openRSVP.addEventListener("click", () => {
-        modal.classList.add("active");
-    });
-}
+// if (openRSVP && rsvpModal) {
+//     openRSVP.addEventListener("click", () => {
+//         rsvpModal.classList.add("active");
+//         loadRSVPData();
+//     });
+// }
 
 if (closeModal) {
     closeModal.addEventListener("click", () => {
-        modal.classList.remove("active");
+        rsvpModal.classList.remove("active");
     });
 }
 
 window.addEventListener("click", e => {
-    if (e.target === modal) {
-        modal.classList.remove("active");
+    if (e.target === rsvpModal) {
+        rsvpModal.classList.remove("active");
     }
 });
 
+
 /* ==========================================================
-   RSVP STORAGE
+   RSVP SYSTEM (WITH CONTACT NUMBER)
 ========================================================== */
 
-const rsvpForm = document.getElementById("rsvpForm");
+// const API_URL = "https://script.google.com/macros/s/AKfycbw4JkYWQs-63WEIf5-NkD2yP5SWiEfcYMu-QN5k3dP4ikYmZJB1nloOLm1GrdWDqFb8pA/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxxluMviyYVyFa-CqIGRyvEPeNrKkES7RTgcasDwriEsP-TCeHhgf7RXdON3rZbQ8DQNQ/exec";
 
-if (rsvpForm) {
-    rsvpForm.addEventListener("submit", e => {
-        e.preventDefault();
+const token = new URLSearchParams(window.location.search).get("token");
+console.log("TOKEN:", token);
 
-        const fields = rsvpForm.querySelectorAll("input, textarea, select");
+const modal = document.getElementById("rsvpModal");
+const form = document.getElementById("rsvpForm");
+const openBtn = document.getElementById("openRSVPBtn");
 
-        const data = {
-            fullName: fields[0].value,
-            contact: fields[1].value,
-            guests: fields[2].value,
-            attendance: fields[3].value,
-            meal: fields[4].value,
-            song: fields[5].value,
-            message: fields[6].value,
-            submitted: new Date().toISOString()
-        };
+/* OPEN MODAL */
+if (openBtn && modal) {
+    openBtn.addEventListener("click", async () => {
+        modal.classList.add("active");
 
-        const existing = JSON.parse(localStorage.getItem("wedding_rsvp") || "[]");
-        existing.push(data);
-        localStorage.setItem("wedding_rsvp", JSON.stringify(existing));
-
-        /* Optional Google Form */
-        if (GOOGLE_FORM_URL !== "") {
-            fetch(GOOGLE_FORM_URL, {
-                method: "POST",
-                body: JSON.stringify(data)
-            }).catch(() => { });
+        // 🧠 wait until cache is ready OR load it
+        if (!cachedGuest) {
+            await preloadRSVP();
         }
 
-        launchConfetti();
-        alert("Thank you! Your RSVP has been received.");
-        modal.classList.remove("active");
-        rsvpForm.reset();
+        loadRSVPData();
+    });
+}
+
+/* LOAD DATA */
+async function loadRSVPData() {
+    if (!cachedGuest) return;
+
+    const guest = cachedGuest;
+
+    document.getElementById("rsvpGroupName").textContent = guest.group_name;
+    document.getElementById("contactNumber").value = guest.contact || "";
+
+    // 🔥 safety fallback
+    if (!Array.isArray(cachedSeats)) {
+        cachedSeats = [];
+    }
+
+    await loadSeats(guest.max_pax);
+}
+
+/* LOAD SEATS */
+async function loadSeats(maxPax) {
+
+    const seats = cachedSeats || [];
+
+    const container = document.getElementById("guestSeatsContainer");
+    container.innerHTML = "";
+
+    // 🔥 Normalize backend values (VERY IMPORTANT FIX)
+    const normalize = (v) => (v || "").toString().trim().toLowerCase();
+
+    // 🔥 Convert array to map (FAST LOOKUP O(1))
+    const seatMap = {};
+    seats.forEach(s => {
+        seatMap[Number(s.seat_no)] = {
+            name: s.name || "",
+            attending: normalize(s.attending)
+        };
+    });
+
+    let html = "";
+
+    for (let i = 1; i <= maxPax; i++) {
+
+        const seat = seatMap[i] || { name: "", attending: "pending" };
+
+        html += `
+            <div class="seat-group">
+
+                <label>Guest ${i}</label>
+
+                <input type="text"
+                    class="guest-name"
+                    placeholder="Guest ${i} name"
+                    value="${seat.name}"
+                />
+
+                <select class="attending">
+
+                    <option value="pending" ${seat.attending === "pending" ? "selected" : ""}>
+                        Not yet decided
+                    </option>
+
+                    <option value="attending" ${seat.attending === "attending" ? "selected" : ""}>
+                        Attending
+                    </option>
+
+                    <option value="not_attending" ${seat.attending === "not_attending" ? "selected" : ""}>
+                        Not attending
+                    </option>
+
+                </select>
+
+            </div>
+        `;
+    }
+
+    container.innerHTML = html;
+}
+
+/* SUBMIT RSVP */
+if (form) {
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const submitBtn = form.querySelector("button[type='submit']");
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Saving...";
+        }
+
+        try {
+            const contact = document.getElementById("contactNumber").value.trim();
+
+            const names = document.querySelectorAll(".guest-name");
+            const checks = document.querySelectorAll(".attending");
+
+            const seats = Array.from(names).map((input, i) => ({
+                seat_no: i + 1,
+                name: input.value.trim(),
+                attending: checks[i]?.value
+            }));
+
+            console.log("API_URL =", API_URL);
+
+            const res = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain"
+                },
+                body: JSON.stringify({
+                    token,
+                    contact,
+                    seats
+                })
+            });
+
+            let result;
+
+            try {
+                result = await res.json();
+            } catch (err) {
+                throw new Error("Invalid server response");
+            }
+
+            if (result.status === "success") {
+
+                showToast("RSVP saved successfully!");
+
+                // close modal
+                modal.classList.remove("active");
+
+                // optional: refresh cache so next open is updated
+                if (typeof preloadRSVP === "function") {
+                    preloadRSVP();
+                }
+
+            } else {
+                throw new Error(result.message || "Save failed");
+            }
+
+        } catch (error) {
+            console.error(error);
+            showToast("Failed to save RSVP. Please try again.", "error");
+
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Save RSVP";
+            }
+        }
+    });
+}
+
+/* CLOSE MODAL */
+if (modal) {
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.classList.remove("active");
+        }
     });
 }
 
@@ -635,6 +781,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+
+let cachedGuest = null;
+let cachedSeats = null;
+
+async function preloadRSVP() {
+    if (!token) {
+        console.error("Missing token in URL");
+        return;
+    }
+
+    const url1 = `${API_URL}?action=guest&token=${encodeURIComponent(token)}`;
+    const guestRes = await fetch(url1);
+    cachedGuest = await guestRes.json();
+
+    if (!cachedGuest || !cachedGuest.token) {
+        cachedGuest = null;
+        cachedSeats = [];
+        return;
+    }
+
+    const url2 = `${API_URL}?action=seats&token=${encodeURIComponent(token)}`;
+    const seatsRes = await fetch(url2);
+    cachedSeats = await seatsRes.json() || [];
+}
+
+
+function showToast(message, type = "success") {
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.remove("success", "error", "show");
+    toast.classList.add(type, "show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+}
 // const qrImg = document.querySelector("#qrBox img");
 
 // if (qrImg) {
