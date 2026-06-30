@@ -830,3 +830,66 @@ function showToast(message, type = "success") {
 /* ==========================================================
     END
 ========================================================== */
+const attireSlides = document.querySelectorAll(".attire-slide");
+const sliderDots = document.querySelectorAll(".slider-dot");
+
+let currentSlide = 0;
+let autoSlide;
+
+function showSlide(index) {
+
+    attireSlides.forEach(slide =>
+        slide.classList.remove("active")
+    );
+
+    sliderDots.forEach(dot =>
+        dot.classList.remove("active")
+    );
+
+    attireSlides[index].classList.add("active");
+    sliderDots[index].classList.add("active");
+
+    currentSlide = index;
+}
+
+function nextSlide() {
+
+    currentSlide++;
+
+    if (currentSlide >= attireSlides.length) {
+        currentSlide = 0;
+    }
+
+    showSlide(currentSlide);
+
+}
+
+function startSlider() {
+
+    autoSlide = setInterval(nextSlide, 5000);
+
+}
+
+function restartSlider() {
+
+    clearInterval(autoSlide);
+
+    startSlider();
+
+}
+
+sliderDots.forEach(dot => {
+
+    dot.addEventListener("click", function () {
+
+        showSlide(Number(this.dataset.slide));
+
+        restartSlider();
+
+    });
+
+});
+
+showSlide(0);
+
+startSlider();
