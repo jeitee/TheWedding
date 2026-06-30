@@ -830,3 +830,119 @@ function showToast(message, type = "success") {
 /* ==========================================================
     END
 ========================================================== */
+const attireSlides = document.querySelectorAll(".attire-slide");
+const sliderDots = document.querySelectorAll(".slider-dot");
+
+// CHANGE THIS to your slider container wrapper
+const slider = document.querySelector(".attire-slider");
+
+let currentSlide = 0;
+let autoSlide;
+
+/* =========================
+   SHOW SLIDE
+========================= */
+function showSlide(index) {
+
+    attireSlides.forEach(slide =>
+        slide.classList.remove("active")
+    );
+
+    sliderDots.forEach(dot =>
+        dot.classList.remove("active")
+    );
+
+    if (attireSlides[index]) {
+        attireSlides[index].classList.add("active");
+    }
+
+    if (sliderDots[index]) {
+        sliderDots[index].classList.add("active");
+    }
+
+    currentSlide = index;
+}
+
+/* =========================
+   NEXT SLIDE
+========================= */
+function nextSlide() {
+    currentSlide++;
+
+    if (currentSlide >= attireSlides.length) {
+        currentSlide = 0;
+    }
+
+    showSlide(currentSlide);
+}
+
+/* =========================
+   START AUTO SLIDER
+========================= */
+function startSlider() {
+    autoSlide = setInterval(nextSlide, 5000);
+}
+
+/* =========================
+   RESTART SLIDER TIMER
+========================= */
+function restartSlider() {
+    clearInterval(autoSlide);
+    startSlider();
+}
+
+/* =========================
+   DOT CLICK NAVIGATION
+========================= */
+sliderDots.forEach(dot => {
+
+    dot.addEventListener("click", function () {
+        showSlide(Number(this.dataset.slide));
+        restartSlider();
+    });
+
+});
+
+/* =========================
+   TOUCH / DRAG SWIPE SUPPORT
+========================= */
+let startX = 0;
+
+if (slider) {
+
+    // Pointer (works for mouse + touch)
+    slider.addEventListener("pointerdown", function (e) {
+        startX = e.clientX;
+    });
+
+    slider.addEventListener("pointerup", function (e) {
+
+        const diff = startX - e.clientX;
+
+        // Ignore small movements
+        if (Math.abs(diff) < 50) return;
+
+        if (diff > 0) {
+            // swipe left → next
+            nextSlide();
+        } else {
+            // swipe right → previous
+            currentSlide--;
+
+            if (currentSlide < 0) {
+                currentSlide = attireSlides.length - 1;
+            }
+
+            showSlide(currentSlide);
+        }
+
+        restartSlider();
+    });
+
+}
+
+/* =========================
+   INIT
+========================= */
+showSlide(0);
+startSlider();
