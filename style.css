@@ -1389,6 +1389,9 @@ button {
     box-shadow: var(--shadow-soft);
     transition: var(--transition);
 }
+.entourage-card.sponsors {
+    grid-column: 1 / -1;
+}
 
 .entourage-card:hover {
     transform: translateY(-8px);
