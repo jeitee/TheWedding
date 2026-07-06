@@ -2541,6 +2541,16 @@ button {
         font-size:2.4rem;
         margin-top:30px;
     }
+    .sponsors-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px 24px;
+        margin-top: 10px;
+    }
+
+    .sponsors-grid p {
+        margin: 0;
+    }
 }
 
 /* ==========================================================
@@ -2693,6 +2703,14 @@ button {
         font-size:2.1rem;
         margin-top:25px;
     }
+    .cursive-signature{
+        font-size:2.1rem;
+        margin-top:25px;
+    }
+    .sponsors-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
 }
 
 /* ==========================================================
@@ -2820,6 +2838,10 @@ button {
         font-size:1.8rem;
         margin-top:20px;
         letter-spacing:.5px;
+    }
+    .sponsors-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
     }
 }
 
