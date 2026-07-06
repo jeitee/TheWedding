@@ -1409,6 +1409,16 @@ button {
     color: var(--text-secondary);
     margin-bottom: 6px;
 }
+.sponsors-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 24px;
+    margin-top: 10px;
+}
+
+.sponsors-grid p {
+    margin: 0;
+}
 
 /* ==========================================================
    GALLERY
