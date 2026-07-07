@@ -245,6 +245,10 @@ const API_URL = "https://script.google.com/macros/s/AKfycbxxluMviyYVyFa-CqIGRyvE
 
 const token = new URLSearchParams(window.location.search).get("token");
 console.log("TOKEN:", token);
+if (!token) {
+    window.location.replace("invalid.html");
+    throw new Error("Missing token.");
+}
 
 const modal = document.getElementById("rsvpModal");
 const form = document.getElementById("rsvpForm");
@@ -388,7 +392,7 @@ if (form) {
 
             if (result.status === "success") {
 
-                showToast("RSVP saved successfully!");
+                showToast("Your RSVP has been successfully recorded.");
 
                 // close modal
                 modal.classList.remove("active");

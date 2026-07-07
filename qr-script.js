@@ -13,8 +13,8 @@ const CLOUD_NAME = "ddokjiyuy";
 const UPLOAD_PRESET = "wedding_uploads";
 
 
-const SUPABASE_URL = "https://olgwdktmuvdzvwuudsku.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_OsSh_YU6BHaiQkOS2INKNg_nHfvl_4r";
+const SUPABASE_URL = "https://jwixdwokeguliuwbwbqs.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_LN5IZzt80pI20i8W4kT-4g_BkEEKlss";
 const EVENT_ID = "teejei-judith";
 
 const sb = window.supabase.createClient(

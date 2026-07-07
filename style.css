@@ -3144,3 +3144,213 @@ button {
     }
 
 }
+
+/* ==========================================================
+   INVALID INVITATION
+==========================================================*/
+
+.invalid-page{
+
+    background:
+            radial-gradient(circle at top,
+            rgba(212,175,55,.06),
+            transparent 60%),
+            var(--ivory);
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.invalid-section{
+
+    width:100%;
+
+    padding:40px 20px;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.invalid-card{
+
+    max-width:700px;
+
+    margin:auto;
+
+    background:#fff;
+
+    border-radius:30px;
+
+    padding:70px 50px;
+
+    text-align:center;
+
+    box-shadow:var(--shadow-soft);
+
+    border:1px solid rgba(0,0,0,.05);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.invalid-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:4px;
+
+    background:var(--gold);
+
+}
+
+.invalid-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+
+    height:260px;
+
+    border-radius:50%;
+
+    background:rgba(212,175,55,.05);
+
+    top:-130px;
+
+    right:-130px;
+
+}
+
+.invalid-logo{
+
+    width:120px;
+
+    margin:0 auto 25px;
+
+}
+
+.invalid-subtitle{
+
+    display:block;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+    color:var(--artichoke);
+
+    font-size:.8rem;
+
+    margin-bottom:20px;
+
+}
+
+.invalid-card h1{
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:3.6rem;
+
+    font-weight:500;
+
+    color:var(--text-primary);
+
+    line-height:1.15;
+
+    margin-bottom:20px;
+
+}
+
+.invalid-card p{
+
+    color:var(--text-secondary);
+
+    font-size:1rem;
+
+    line-height:1.8;
+
+    max-width:520px;
+
+    margin:0 auto 18px;
+
+}
+
+.invalid-card .btn-primary{
+
+    margin-top:30px;
+
+}
+
+.invalid-verse{
+
+    margin-top:45px;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:1.25rem;
+
+    font-style:italic;
+
+    color:var(--artichoke);
+
+}
+
+.invalid-verse span{
+
+    display:block;
+
+    margin-top:8px;
+
+    font-size:.95rem;
+
+    font-style:normal;
+
+    opacity:.7;
+
+}
+
+@media(max-width:768px){
+
+    .invalid-card{
+
+        padding:50px 28px;
+
+    }
+
+    .invalid-card h1{
+
+        font-size:2.5rem;
+
+    }
+
+    .invalid-logo{
+
+        width:90px;
+
+    }
+
+}
