@@ -166,18 +166,24 @@ if (scrollBtn) {
 /* ==========================================================
    MUSIC PLAYER
 ========================================================== */
+/* ==========================================================
+   MUSIC PLAYER
+========================================================== */
 
 const musicBtn = document.getElementById("musicToggle");
 const music = document.getElementById("bgMusic");
 
 let isPlaying = false;
+let wasPlayingBeforeHidden = false;
 
-// Play music function
+/* ==========================================
+   PLAY MUSIC
+========================================== */
+
 async function playMusic() {
     if (isPlaying) return;
 
     try {
-        music.load();
         await music.play();
 
         musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
@@ -187,16 +193,26 @@ async function playMusic() {
     }
 }
 
-// Pause music function
+/* ==========================================
+   PAUSE MUSIC
+========================================== */
+
 function pauseMusic() {
+    if (!isPlaying) return;
+
     music.pause();
+
     musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
     isPlaying = false;
 }
 
+/* ==========================================
+   INITIALIZE
+========================================== */
+
 if (musicBtn && music) {
 
-    // Toggle button
+    // Toggle play/pause
     musicBtn.addEventListener("click", () => {
         if (isPlaying) {
             pauseMusic();
@@ -205,10 +221,65 @@ if (musicBtn && music) {
         }
     });
 
-    // Automatically start music on the FIRST user interaction
-    window.addEventListener("pointerdown", playMusic, { once: true });
+    // Automatically play on the first user interaction
+    window.addEventListener("pointerdown", () => {
+        playMusic();
+    }, { once: true });
 
 }
+
+/* ==========================================
+   PAGE VISIBILITY
+========================================== */
+
+document.addEventListener("visibilitychange", async () => {
+
+    if (document.hidden) {
+
+        // Remember if music was playing
+        wasPlayingBeforeHidden = isPlaying;
+
+        if (isPlaying) {
+            pauseMusic();
+        }
+
+    } else {
+
+        // Resume only if it was playing before
+        if (wasPlayingBeforeHidden) {
+            try {
+                await music.play();
+
+                musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                isPlaying = true;
+            } catch (error) {
+                console.log("Resume blocked:", error);
+            }
+        }
+
+    }
+});
+
+/* ==========================================
+   PAGE HIDE
+========================================== */
+
+window.addEventListener("pagehide", () => {
+    if (isPlaying) {
+        wasPlayingBeforeHidden = true;
+        pauseMusic();
+    }
+});
+
+/* ==========================================
+   AUDIO ENDED
+========================================== */
+
+music.addEventListener("ended", () => {
+    musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+    isPlaying = false;
+    wasPlayingBeforeHidden = false;
+});
 /* ==========================================================
    MOBILE MENU
 ========================================================== */
