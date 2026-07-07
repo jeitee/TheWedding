@@ -410,6 +410,7 @@ try {
             );
 
         const fileType =
+
             file.type.startsWith(
                 "image/"
             )
@@ -422,10 +423,9 @@ try {
             .from("files")
             .insert({
                 upload_id:
-                    uploadId,
-
+                uploadId,
                 original_filename:
-                    file.name,
+                file.name,
 
                 stored_filename:
                     cloudinary.public_id,

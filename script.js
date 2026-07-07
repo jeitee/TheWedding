@@ -135,35 +135,80 @@ if (scrollBtn) {
 /* ==========================================================
    MUSIC PLAYER
 ========================================================== */
+//
+// const musicBtn = document.getElementById("musicToggle");
+// const music = document.getElementById("bgMusic");
+// let isPlaying = false;
+//
+// if (musicBtn && music) {
+//     musicBtn.addEventListener("click", () => {
+//         if (!isPlaying) {
+//             // Explicitly tell Chrome to load the file on click interaction
+//             music.load();
+//
+//             // Handle Chrome's autoplay promise
+//             music.play()
+//                 .then(() => {
+//                     musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+//                     isPlaying = true;
+//                 })
+//                 .catch((error) => {
+//                     console.log("Chrome blocked playback or file not found:", error);
+//                     alert("Please interact with the page first or check if audio/enchanted.mp3 exists!");
+//                 });
+//         } else {
+//             music.pause();
+//             musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+//             isPlaying = false;
+//         }
+//     });
+// }
+/* ==========================================================
+   MUSIC PLAYER
+========================================================== */
 
 const musicBtn = document.getElementById("musicToggle");
 const music = document.getElementById("bgMusic");
+
 let isPlaying = false;
 
-if (musicBtn && music) {
-    musicBtn.addEventListener("click", () => {
-        if (!isPlaying) {
-            // Explicitly tell Chrome to load the file on click interaction
-            music.load();
+// Play music function
+async function playMusic() {
+    if (isPlaying) return;
 
-            // Handle Chrome's autoplay promise
-            music.play()
-                .then(() => {
-                    musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                    isPlaying = true;
-                })
-                .catch((error) => {
-                    console.log("Chrome blocked playback or file not found:", error);
-                    alert("Please interact with the page first or check if audio/enchanted.mp3 exists!");
-                });
-        } else {
-            music.pause();
-            musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
-            isPlaying = false;
-        }
-    });
+    try {
+        music.load();
+        await music.play();
+
+        musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        isPlaying = true;
+    } catch (error) {
+        console.log("Playback blocked:", error);
+    }
 }
 
+// Pause music function
+function pauseMusic() {
+    music.pause();
+    musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+    isPlaying = false;
+}
+
+if (musicBtn && music) {
+
+    // Toggle button
+    musicBtn.addEventListener("click", () => {
+        if (isPlaying) {
+            pauseMusic();
+        } else {
+            playMusic();
+        }
+    });
+
+    // Automatically start music on the FIRST user interaction
+    window.addEventListener("pointerdown", playMusic, { once: true });
+
+}
 /* ==========================================================
    MOBILE MENU
 ========================================================== */
