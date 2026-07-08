@@ -207,6 +207,9 @@ if (musicBtn && music) {
 
     // Automatically start music on the FIRST user interaction
     window.addEventListener("pointerdown", playMusic, { once: true });
+    window.addEventListener("touchstart", playMusic, { once: true });
+    window.addEventListener("click", playMusic, { once: true });
+    window.addEventListener("scroll", playMusic, { once: true, passive: true });
 
 }
 /* ==========================================
