@@ -1664,6 +1664,12 @@ button {
     max-width: 520px;
     margin: 0 auto;
 }
+.reminder-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 25px;
+}
 
 /* ==========================================================
    COLOR PALETTE
