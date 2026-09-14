@@ -21,25 +21,37 @@ AOS.init({
 window.addEventListener("load", () => {
     const loader = document.getElementById("loader");
 
-    // 🔥 PRELOAD RSVP DATA HERE (NEW)
-    preloadRSVP().catch(console.error);
+    preloadRSVP()
+        .then(() => {
 
-    setTimeout(() => {
-        loader.classList.add("stage-open");
-    }, 1200);
+            // 🔒 Guard: token was present, but no guest matched it.
+            // Redirect before the envelope ever opens.
+            if (!cachedGuest) {
+                window.location.replace("invalid.html");
+                return;
+            }
 
-    setTimeout(() => {
-        loader.classList.add("stage-hold");
-    }, 2600);
+            setTimeout(() => {
+                loader.classList.add("stage-open");
+            }, 1200);
 
-    setTimeout(() => {
-        loader.style.transition = "opacity 1.2s ease";
-        loader.style.opacity = "0";
-    }, 3800);
+            setTimeout(() => {
+                loader.classList.add("stage-hold");
+            }, 2600);
 
-    setTimeout(() => {
-        loader.style.display = "none";
-    }, 5200);
+            setTimeout(() => {
+                loader.style.transition = "opacity 1.2s ease";
+                loader.style.opacity = "0";
+            }, 3800);
+
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 5200);
+        })
+        .catch((err) => {
+            console.error(err);
+            window.location.replace("invalid.html");
+        });
 });
 /* ==========================================================
    COUNTDOWN
@@ -357,13 +369,17 @@ const openBtn = document.getElementById("openRSVPBtn");
 /* OPEN MODAL */
 if (openBtn && modal) {
     openBtn.addEventListener("click", async () => {
-        modal.classList.add("active");
 
-        // 🧠 wait until cache is ready OR load it
         if (!cachedGuest) {
             await preloadRSVP();
         }
 
+        if (!cachedGuest) {
+            window.location.replace("invalid.html");
+            return;
+        }
+
+        modal.classList.add("active");
         loadRSVPData();
     });
 }
