@@ -1667,8 +1667,13 @@ button {
 .reminder-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
+    gap: 30px;
     margin-top: 25px;
+}
+
+.reminder-item {
+    text-align: center;
+    padding: 10px 20px;
 }
 
 /* ==========================================================
