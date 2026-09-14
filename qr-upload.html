@@ -11,70 +11,72 @@
 
 <body>
 
-    <div class="page">
+<div class="page">
 
-        <div class="card">
+    <div class="card">
 
-            <div class="header">
-                <div class="monogram-wrapper">
-                    <img src="image/logo.png" alt="Teejei and Judith Wedding Logo" class="monogram-img">
-                </div>
-                <h1>Wedding Memories</h1>
-                <p>We’re so grateful you shared in our special day and made it unforgettable</p>
+        <div class="header">
+            <div class="monogram-wrapper">
+                <img src="image/logo.png" alt="Teejei and Judith Wedding Logo" class="monogram-img">
             </div>
+            <h1>Wedding Memories</h1>
+            <p>We’re so grateful you shared in our special day and made it unforgettable</p>
+        </div>
 
-            <div class="upload-type">
+        <div class="upload-type">
 
-                <label class="type-option">
-                    <input type="radio" name="uploadType" value="photo" checked>
+            <label class="type-option">
+                <input type="radio" name="uploadType" value="photo" checked>
 
-                    <span>📸 Photos</span>
-                </label>
+                <span>📸 Photos</span>
+            </label>
 
-                <label class="type-option">
-                    <input type="radio" name="uploadType" value="video">
+            <label class="type-option">
+                <input type="radio" name="uploadType" value="video">
 
-                    <span>🎥 Videos</span>
-                </label>
-
-            </div>
-
-            <div class="upload-area">
-
-                <label class="upload-box">
-                    <input type="file" id="images" accept="image/*" multiple>
-                    <span id="uploadLabel">
-                        📸 Tap to select photos
-                    </span>
-
-                    <small id="uploadHint">
-                        Maximum 30 photos
-                    </small>
-                </label>
-
-                <div class="preview" id="preview"></div>
-
-                <button type="button" id="previewAllBtn" class="preview-all-btn" style="display:none;">
-                    Preview All
-                </button>
-
-            </div>
-            <input id="uploader" type="text" placeholder="Uploader name" required>
-            <textarea id="message" placeholder="Write a message for the couple (optional)"></textarea>
-
-            <button id="uploadBtn">Upload Memories</button>
-
-            <p class="note">
-                Scan QR → Upload your captured moments instantly
-            </p>
+                <span>🎥 Videos</span>
+            </label>
 
         </div>
 
+        <div id="uploadStatus" class="upload-status"></div>
+
+        <div class="upload-area">
+
+            <label class="upload-box">
+                <input type="file" id="images" accept="image/*" multiple>
+                <span id="uploadLabel">
+                        📸 Tap to select photos
+                    </span>
+
+                <small id="uploadHint">
+                    Maximum 30 photos
+                </small>
+            </label>
+
+            <div class="preview" id="preview"></div>
+
+            <button type="button" id="previewAllBtn" class="preview-all-btn" style="display:none;">
+                Preview All
+            </button>
+
+        </div>
+        <input id="uploader" type="text" placeholder="Uploader name" required>
+        <textarea id="message" placeholder="Write a message for the couple (optional)"></textarea>
+
+        <button id="uploadBtn">Upload Memories</button>
+
+        <p class="note">
+            Scan QR → Upload your captured moments instantly
+        </p>
+
     </div>
 
-    <div id="toast" class="toast"></div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="qr-script.js"></script>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="qr-script.js?v=2"></script>
 
 </body>
 

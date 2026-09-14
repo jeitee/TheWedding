@@ -244,6 +244,38 @@ button:hover {
     background: #f6fbf7;
 }
 
+.upload-status {
+    display: none;
+    margin-bottom: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(163, 184, 153, 0.12);
+    border: 1px solid rgba(163, 184, 153, 0.35);
+    color: var(--deep);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.upload-status.closed {
+    background: rgba(214, 102, 102, 0.08);
+    border-color: rgba(214, 102, 102, 0.3);
+    color: #a94442;
+}
+
+button:disabled,
+input:disabled,
+textarea:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.upload-box.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 .upload-type {
 
     display: flex;
@@ -310,5 +342,5 @@ button:hover {
     border-color: var(--sage);
 
     box-shadow:
-        0 4px 12px rgba(163, 184, 153, 0.15);
+            0 4px 12px rgba(163, 184, 153, 0.15);
 }
