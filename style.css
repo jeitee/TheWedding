@@ -2632,12 +2632,8 @@ button {
         margin: 0;
     }
     .secondary-sponsors-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .secondary-sponsor-group {
-        margin-bottom: 10px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
     }
 }
 
@@ -2940,12 +2936,15 @@ button {
         gap: 8px;
     }
     .secondary-sponsors-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 10px;
     }
 
     .secondary-sponsor-group {
-        margin-bottom: 10px;
+        margin-bottom: 6px;
+    }
+
+    .secondary-sponsor-group h4 {
+        font-size: 1.3rem;
     }
 }
 
