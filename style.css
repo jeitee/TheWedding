@@ -2475,6 +2475,14 @@ button {
     .site-footer {
         padding: 60px 15px;
     }
+    .secondary-sponsors-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .secondary-sponsor-group {
+        margin-bottom: 10px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2488,6 +2496,14 @@ button {
 
     .footer-tagline {
         font-size: 0.8rem;
+    }
+    .secondary-sponsors-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .secondary-sponsor-group {
+        margin-bottom: 10px;
     }
 }
 
@@ -2614,6 +2630,14 @@ button {
 
     .sponsors-grid p {
         margin: 0;
+    }
+    .secondary-sponsors-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .secondary-sponsor-group {
+        margin-bottom: 10px;
     }
 }
 
@@ -2775,6 +2799,14 @@ button {
         grid-template-columns: 1fr;
         gap: 8px;
     }
+    .secondary-sponsors-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .secondary-sponsor-group {
+        margin-bottom: 10px;
+    }
 }
 
 /* ==========================================================
@@ -2906,6 +2938,14 @@ button {
     .sponsors-grid {
         grid-template-columns: 1fr;
         gap: 8px;
+    }
+    .secondary-sponsors-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .secondary-sponsor-group {
+        margin-bottom: 10px;
     }
 }
 
