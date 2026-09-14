@@ -1433,6 +1433,37 @@ button {
 }
 
 /* =========================================================
+   SECONDARY SPONSORS
+========================================================= */
+
+.secondary-sponsors {
+    grid-column: 1 / -1;
+}
+
+.secondary-sponsors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.secondary-sponsor-group {
+    text-align: center;
+}
+
+.secondary-sponsor-group h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--artichoke);
+    margin-bottom: 12px;
+}
+
+.secondary-sponsor-group p {
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+/* =========================================================
    GALLERY
 ========================================================== */
 
