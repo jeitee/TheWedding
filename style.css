@@ -708,7 +708,7 @@ button {
 
 .story-timeline {
     position: relative;
-    max-width: 900px;
+    max-width: 1100px;
     margin: auto;
 }
 
@@ -725,7 +725,7 @@ button {
 
 .story-item {
     width: 50%;
-    padding: 20px 40px;
+    padding: 20px 25px;
     position: relative;
 }
 
@@ -1695,16 +1695,16 @@ button {
     max-width: 520px;
     margin: 0 auto;
 }
-.reminder-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+.reminder-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
     margin-top: 25px;
 }
 
 .reminder-item {
+    width: 100%;
     text-align: center;
-    padding: 10px 20px;
 }
 
 /* ==========================================================
