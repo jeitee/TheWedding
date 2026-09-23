@@ -59,6 +59,83 @@ window.addEventListener("load", () => {
 
 const weddingDate = new Date("December 20, 2026 14:00:00").getTime();
 
+/* ==========================================================
+   RSVP CUTOFF (7 DAYS BEFORE WEDDING)
+========================================================== */
+
+const RSVP_CUTOFF_DAYS =89;
+const rsvpCutoffTime = weddingDate - (RSVP_CUTOFF_DAYS * 24 * 60 * 60 * 1000);
+
+function isRSVPClosed() {
+    return Date.now() >= rsvpCutoffTime;
+}
+
+function updateRSVPButtonState() {
+    const btn = document.getElementById("openRSVPBtn");
+    if (!btn) return;
+
+    // 🔓 Cutoff no longer blocks the button itself — guests can still
+    // open the modal to VIEW their entry. Only editing/saving is locked
+    // (see lockRSVPFormForViewing()). The button stays enabled, just
+    // relabeled so guests know submissions are closed.
+    if (isRSVPClosed()) {
+        btn.disabled = false;
+        btn.classList.add("rsvp-closed");
+        btn.textContent = "View RSVP";
+    } else {
+        btn.disabled = false;
+        btn.classList.remove("rsvp-closed");
+    }
+}
+
+/* LOCK FORM FOR VIEW-ONLY (past cutoff) */
+function lockRSVPFormForViewing() {
+    const contactInput = document.getElementById("contactNumber");
+    const names = document.querySelectorAll(".guest-name");
+    const selects = document.querySelectorAll(".attending");
+    const submitBtn = form ? form.querySelector("button[type='submit']") : null;
+    const noteId = "rsvpClosedNote";
+
+    if (contactInput) contactInput.disabled = true;
+    names.forEach(input => input.disabled = true);
+    selects.forEach(select => select.disabled = true);
+
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "RSVP Closed";
+    }
+
+    // Add a one-time note inside the modal explaining why it's locked
+    if (modal && !document.getElementById(noteId)) {
+        const note = document.createElement("p");
+        note.id = noteId;
+        note.className = "rsvp-closed-note";
+        note.textContent = "RSVP submissions are now closed. You're viewing your saved response.";
+        const modalBody = modal.querySelector(".modal-content") || modal;
+        modalBody.insertBefore(note, modalBody.firstChild);
+    }
+}
+
+/* UNLOCK FORM (before cutoff) */
+function unlockRSVPFormForEditing() {
+    const contactInput = document.getElementById("contactNumber");
+    const names = document.querySelectorAll(".guest-name");
+    const selects = document.querySelectorAll(".attending");
+    const submitBtn = form ? form.querySelector("button[type='submit']") : null;
+    const note = document.getElementById("rsvpClosedNote");
+
+    if (contactInput) contactInput.disabled = false;
+    names.forEach(input => input.disabled = false);
+    selects.forEach(select => select.disabled = false);
+
+    if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Save RSVP";
+    }
+
+    if (note) note.remove();
+}
+
 function updateCountdown() {
     const now = new Date().getTime();
     const distance = weddingDate - now;
@@ -77,10 +154,13 @@ function updateCountdown() {
     if (h) h.textContent = hours;
     if (m) m.textContent = minutes;
     if (s) s.textContent = seconds;
+
+    updateRSVPButtonState();
 }
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
+updateRSVPButtonState();
 
 /* ==========================================================
    SMOOTH NAVIGATION
@@ -353,8 +433,9 @@ window.addEventListener("click", e => {
 ========================================================== */
 
 // const API_URL = "https://script.google.com/macros/s/AKfycbw4JkYWQs-63WEIf5-NkD2yP5SWiEfcYMu-QN5k3dP4ikYmZJB1nloOLm1GrdWDqFb8pA/exec";
-const API_URL = "https://script.google.com/macros/s/AKfycbxxluMviyYVyFa-CqIGRyvEPeNrKkES7RTgcasDwriEsP-TCeHhgf7RXdON3rZbQ8DQNQ/exec";
-
+//working url below but cant find whhich email is used to deploy it
+// const API_URL = "https://script.google.com/macros/s/AKfycbxxluMviyYVyFa-CqIGRyvEPeNrKkES7RTgcasDwriEsP-TCeHhgf7RXdON3rZbQ8DQNQ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwrF5mrRJkyyZ582_GtBIW8X-fSBxHnBZoLRG0YZFBn8vQzz2VRNyjoWRVYZLtmuRbbUA/exec";
 const token = new URLSearchParams(window.location.search).get("token");
 console.log("TOKEN:", token);
 if (!token) {
@@ -380,7 +461,16 @@ if (openBtn && modal) {
         }
 
         modal.classList.add("active");
-        loadRSVPData();
+        await loadRSVPData();
+
+        // 🔒 Past cutoff: guests can still VIEW their saved entry,
+        // but the form is locked against edits/saving.
+        if (isRSVPClosed()) {
+            lockRSVPFormForViewing();
+            showToast("RSVP is now closed. You can view your entry, but changes can no longer be saved.", "error");
+        } else {
+            unlockRSVPFormForEditing();
+        }
     });
 }
 
@@ -465,6 +555,14 @@ async function loadSeats(maxPax) {
 if (form) {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
+
+        if (isRSVPClosed()) {
+            // Safety net: the form is already locked via lockRSVPFormForViewing(),
+            // this just guarantees no save can slip through.
+            showToast("RSVP is now closed. Changes can no longer be saved.", "error");
+            lockRSVPFormForViewing();
+            return;
+        }
 
         const submitBtn = form.querySelector("button[type='submit']");
         if (submitBtn) {
@@ -898,6 +996,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    updateRSVPButtonState();
 
 });
 
