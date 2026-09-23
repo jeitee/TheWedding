@@ -63,7 +63,7 @@ const weddingDate = new Date("December 20, 2026 14:00:00").getTime();
    RSVP CUTOFF (7 DAYS BEFORE WEDDING)
 ========================================================== */
 
-const RSVP_CUTOFF_DAYS =89;
+const RSVP_CUTOFF_DAYS =7;
 const rsvpCutoffTime = weddingDate - (RSVP_CUTOFF_DAYS * 24 * 60 * 60 * 1000);
 
 function isRSVPClosed() {
