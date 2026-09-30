@@ -436,7 +436,9 @@ window.addEventListener("click", e => {
 //working url below but cant find whhich email is used to deploy it
 // const API_URL = "https://script.google.com/macros/s/AKfycbxxluMviyYVyFa-CqIGRyvEPeNrKkES7RTgcasDwriEsP-TCeHhgf7RXdON3rZbQ8DQNQ/exec";
 const API_URL = "https://script.google.com/macros/s/AKfycbwrF5mrRJkyyZ582_GtBIW8X-fSBxHnBZoLRG0YZFBn8vQzz2VRNyjoWRVYZLtmuRbbUA/exec";
-const token = new URLSearchParams(window.location.search).get("token");
+// const token = new URLSearchParams(window.location.search).get("token");
+const token = new URLSearchParams(window.location.search).get("token")
+    || decodeURIComponent(window.location.hash.replace("#", ""));
 console.log("TOKEN:", token);
 if (!token) {
     window.location.replace("invalid.html");
