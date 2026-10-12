@@ -1458,13 +1458,13 @@ button {
 
 @media (min-width: 768px) {
     .color-palette {
-        gap: 28px;
+        gap: 20px;
     }
 }
 
 @media (min-width: 1200px) {
     .color-palette {
-        gap: 32px;
+        gap:24px;
     }
 }
 
@@ -2487,7 +2487,7 @@ button {
     }
 
     .color-palette {
-        gap: 10px;
+        gap: 5px;
         margin-top: 15px;
         padding: 10px 0;
     }
@@ -2628,7 +2628,7 @@ button {
     }
 
     .color-palette {
-        gap: 10px;
+        gap: 5px;
         margin-top: 15px;
         padding: 10px 0;
     }
@@ -2780,7 +2780,7 @@ button {
     }
 
     .color-palette {
-        gap: 10px;
+        gap: 5px;
         margin-top: 15px;
         padding: 10px 0;
     }

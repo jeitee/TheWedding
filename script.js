@@ -542,7 +542,6 @@ async function loadSeats(maxPax, groupName = "") {
                 />
 
                 <select class="attending" aria-label="Guest ${i} attendance">
-                    <option value="pending" ${seat.attending === "pending" ? "selected" : ""}>Not yet decided</option>
                     <option value="attending" ${seat.attending === "attending" ? "selected" : ""}>Attending</option>
                     <option value="not_attending" ${seat.attending === "not_attending" ? "selected" : ""}>Not attending</option>
                 </select>
