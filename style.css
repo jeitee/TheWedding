@@ -27,10 +27,10 @@
     /* Adjusted to a muted green-tinted charcoal */
 
     --shadow-soft:
-        0 15px 35px rgba(0, 0, 0, 0.06);
+            0 15px 35px rgba(0, 0, 0, 0.06);
 
     --shadow-hover:
-        0 25px 60px rgba(110, 127, 101, 0.15);
+            0 25px 60px rgba(110, 127, 101, 0.15);
     /* Tinted with Artichoke for organic feel */
 
     --radius-lg: 30px;
@@ -38,10 +38,10 @@
     --radius-sm: 12px;
 
     --transition:
-        all .35s ease;
+            all .35s ease;
 
     --container:
-        1200px;
+            1200px;
 }
 
 /* ==========================================================
@@ -313,9 +313,9 @@ button {
     z-index: 999;
     backdrop-filter: blur(15px);
     background:
-        rgba(255, 255, 255, .45);
+            rgba(255, 255, 255, .45);
     border-bottom:
-        1px solid rgba(163, 184, 153, .15);
+            1px solid rgba(163, 184, 153, .15);
 }
 
 .navbar-logo {
@@ -380,7 +380,7 @@ button {
     position: relative;
 
     background:
-        url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=80") center center / cover;
+            url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=80") center center / cover;
 
     display: flex;
     justify-content: center;
@@ -393,10 +393,10 @@ button {
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(rgba(47, 47, 47, .45),
+            linear-gradient(rgba(47, 47, 47, .45),
             rgba(110, 127, 101, .35)
-            /* Hints of organic artichoke in the backdrop shade */
-        );
+                /* Hints of organic artichoke in the backdrop shade */
+            );
 }
 
 /* .hero-content{
@@ -422,7 +422,7 @@ button {
     font-size: .95rem;
     text-transform: uppercase;
     animation:
-        fadeUp 1.2s ease;
+            fadeUp 1.2s ease;
 }
 
 .hero-monogram {
@@ -457,7 +457,7 @@ button {
     font-weight: 500;
     margin-bottom: 20px;
     animation:
-        fadeUp 1.6s ease;
+            fadeUp 1.6s ease;
 }
 
 .couple-name {
@@ -499,7 +499,7 @@ button {
     letter-spacing: 2px;
     margin-bottom: 35px;
     animation:
-        fadeUp 1.8s ease;
+            fadeUp 1.8s ease;
 }
 
 .bible-verse {
@@ -571,14 +571,14 @@ button {
     font-weight: 600;
     transition: var(--transition);
     box-shadow:
-        0 12px 30px rgba(110, 127, 101, .25);
+            0 12px 30px rgba(110, 127, 101, .25);
 }
 
 .btn-primary:hover {
     transform: translateY(-4px);
     background: var(--sage);
     box-shadow:
-        0 20px 40px rgba(163, 184, 153, .35);
+            0 20px 40px rgba(163, 184, 153, .35);
 }
 
 /* ==========================================================
@@ -596,7 +596,7 @@ button {
     color: white;
     z-index: 999;
     box-shadow:
-        0 15px 30px rgba(0, 0, 0, .15);
+            0 15px 30px rgba(0, 0, 0, .15);
     transition: var(--transition);
 }
 
@@ -619,7 +619,7 @@ button {
     background: white;
     color: var(--artichoke);
     box-shadow:
-        0 10px 25px rgba(0, 0, 0, .12);
+            0 10px 25px rgba(0, 0, 0, .12);
     z-index: 999;
     opacity: 0;
     visibility: hidden;
@@ -649,8 +649,8 @@ button {
 
 .section-title h2 {
     font-family:
-        'Cormorant Garamond',
-        serif;
+            'Cormorant Garamond',
+            serif;
     font-size: 3.5rem;
     margin-top: 15px;
     color: var(--text-primary);
@@ -701,7 +701,7 @@ button {
 
 .story-section {
     background:
-        linear-gradient(180deg,
+            linear-gradient(180deg,
             #ffffff,
             var(--ivory));
 }
@@ -748,8 +748,8 @@ button {
 
 .story-card h3 {
     font-family:
-        'Cormorant Garamond',
-        serif;
+            'Cormorant Garamond',
+            serif;
     font-size: 2rem;
     color: var(--artichoke);
     margin-bottom: 15px;
@@ -777,13 +777,13 @@ button {
     from {
         opacity: 0;
         transform:
-            translateY(40px);
+                translateY(40px);
     }
 
     to {
         opacity: 1;
         transform:
-            translateY(0);
+                translateY(0);
     }
 }
 
@@ -791,13 +791,13 @@ button {
     from {
         opacity: 0;
         transform:
-            scale(.7);
+                scale(.7);
     }
 
     to {
         opacity: 1;
         transform:
-            scale(1);
+                scale(1);
     }
 }
 
@@ -1269,7 +1269,7 @@ button {
 .venue-section {
     position: relative;
     background:
-        url("https://www.jenniferweddingandevents.com/suppliers/wp-content/uploads/2021/03/35346873_1711871372195576_7848919864331730944_o-1024x895.jpg") center center / cover no-repeat;
+            url("https://www.jenniferweddingandevents.com/suppliers/wp-content/uploads/2021/03/35346873_1711871372195576_7848919864331730944_o-1024x895.jpg") center center / cover no-repeat;
     color: white;
     padding: 80px 0;
 }
@@ -1530,8 +1530,8 @@ button {
     padding: 10px;
 
     box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.25),
-        0 0 0 1px rgba(212, 175, 55, 0.15);
+            0 25px 60px rgba(0, 0, 0, 0.25),
+            0 0 0 1px rgba(212, 175, 55, 0.15);
 
     transform: scale(0.98);
     animation: popIn 0.35s ease forwards;
@@ -1730,14 +1730,14 @@ button {
     border: 4px solid rgba(255, 255, 255, 0.9);
 
     box-shadow:
-        0 8px 18px rgba(0, 0, 0, .12),
-        0 0 0 1px rgba(0, 0, 0, .08);
+            0 8px 18px rgba(0, 0, 0, .12),
+            0 0 0 1px rgba(0, 0, 0, .08);
 
     cursor: default;
 
     transition:
-        transform .25s ease,
-        box-shadow .25s ease;
+            transform .25s ease,
+            box-shadow .25s ease;
 }
 
 .color-swatch:hover {
@@ -1745,8 +1745,8 @@ button {
     transform: translateY(-6px) scale(1.06);
 
     box-shadow:
-        0 12px 26px rgba(0, 0, 0, .18),
-        0 0 0 1px rgba(0, 0, 0, .08);
+            0 12px 26px rgba(0, 0, 0, .18),
+            0 0 0 1px rgba(0, 0, 0, .08);
 
 }
 
@@ -1854,10 +1854,107 @@ button {
     transition: .35s ease;
 }
 
+/* ==========================================================
+   RSVP MODAL (only the guest list scrolls)
+========================================================== */
+
+/* .modal-content.rsvp-modal-content beats the plain .modal-content
+   rules (including the mobile media query) without !important */
+.modal-content.rsvp-modal-content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;              /* override the base overflow-y: auto */
+
+    width: 94%;
+    max-width: 680px;
+    max-height: 94vh;
+    max-height: 94dvh;             /* accounts for mobile browser bars */
+    padding: 48px 48px 40px;
+}
+
+.rsvp-modal-content h2 {
+    flex-shrink: 0;
+}
+
+#rsvpForm {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;                 /* lets the child shrink and scroll */
+}
+
+.rsvp-fixed,
+.rsvp-submit {
+    flex-shrink: 0;
+}
+
+.contact-field {
+    margin-bottom: 12px;
+}
+
+.rsvp-notice {
+    margin: 0 0 18px;
+    padding: 12px 14px;
+
+    font-size: .85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+
+    background: rgba(212, 175, 55, .08);
+    border-left: 3px solid var(--gold);
+    border-radius: 8px;
+}
+
+#guestSeatsContainer {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;  /* don't scroll the page behind the modal */
+
+    margin-bottom: 20px;
+    padding: 4px 8px 0 0;          /* room for scrollbar + hover lift */
+}
+
+.rsvp-modal-content .seat-group {
+    padding: 18px;
+    margin-bottom: 14px;
+}
+
+.seat-primary .guest-name[readonly] {
+    background: rgba(212, 175, 55, .06);
+    cursor: default;
+}
+
+.rsvp-closed-note {
+    flex-shrink: 0;
+}
+
+/* Tablet and desktop: two guests per row */
+@media (min-width: 768px) {
+    #guestSeatsContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        align-content: start;
+    }
+
+    .rsvp-modal-content .seat-group {
+        margin-bottom: 0;
+    }
+}
+
+/* Mobile: use more of the screen, tighter padding */
+@media (max-width: 767px) {
+    .modal-content.rsvp-modal-content {
+        width: 96%;
+        padding: 36px 20px 24px;
+        border-radius: 24px;
+    }
+}
+
 .modal.active .modal-content {
     transform: translateY(0);
 }
-
 /* CLOSE BUTTON */
 .close-modal {
     position: absolute;
@@ -1922,10 +2019,6 @@ button {
 /* ==========================================================
    RSVP SEATS (DYNAMIC)
 ========================================================== */
-
-#guestSeatsContainer {
-    margin-bottom: 20px;
-}
 
 .seat-group {
     display: flex;
@@ -1994,8 +2087,8 @@ button {
 
 .thankyou-section {
     background:
-        radial-gradient(circle at top, rgba(212, 175, 55, .08), transparent 60%),
-        #fff;
+            radial-gradient(circle at top, rgba(212, 175, 55, .08), transparent 60%),
+            #fff;
 
     padding: 140px 20px;
     text-align: center;
@@ -2131,9 +2224,9 @@ button {
     height: 220%;
 
     background: linear-gradient(to bottom,
-            transparent,
-            rgba(212, 175, 55, .25),
-            transparent);
+    transparent,
+    rgba(212, 175, 55, .25),
+    transparent);
 
     transform: rotate(25deg);
 
@@ -2246,7 +2339,7 @@ button {
     text-align: center;
 
     text-shadow:
-        0 3px 10px rgba(212, 175, 55, .18);
+            0 3px 10px rgba(212, 175, 55, .18);
 
     user-select: none;
 
@@ -2271,7 +2364,7 @@ button {
     line-height: 1;
 
     text-shadow:
-        0 2px 6px rgba(212, 175, 55, .12);
+            0 2px 6px rgba(212, 175, 55, .12);
 
 }
 
@@ -3111,7 +3204,7 @@ button {
     border-radius: 22px;
 
     box-shadow:
-        0 12px 30px rgba(0,0,0,.12);
+            0 12px 30px rgba(0,0,0,.12);
 
     animation: fadeIn .5s ease;
 

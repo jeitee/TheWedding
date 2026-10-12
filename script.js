@@ -485,26 +485,31 @@ async function loadRSVPData() {
     document.getElementById("rsvpGroupName").textContent = guest.group_name;
     document.getElementById("contactNumber").value = guest.contact || "";
 
-    // 🔥 safety fallback
     if (!Array.isArray(cachedSeats)) {
         cachedSeats = [];
     }
 
-    await loadSeats(guest.max_pax);
+    await loadSeats(guest.max_pax, guest.group_name);
+}
+
+/* HTML-escape so names with quotes or < > can't break the markup */
+function escapeHTML(str) {
+    return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
 }
 
 /* LOAD SEATS */
-async function loadSeats(maxPax) {
+async function loadSeats(maxPax, groupName = "") {
 
     const seats = cachedSeats || [];
-
     const container = document.getElementById("guestSeatsContainer");
-    container.innerHTML = "";
 
-    // 🔥 Normalize backend values (VERY IMPORTANT FIX)
     const normalize = (v) => (v || "").toString().trim().toLowerCase();
 
-    // 🔥 Convert array to map (FAST LOOKUP O(1))
     const seatMap = {};
     seats.forEach(s => {
         seatMap[Number(s.seat_no)] = {
@@ -519,31 +524,27 @@ async function loadSeats(maxPax) {
 
         const seat = seatMap[i] || { name: "", attending: "pending" };
 
-        html += `
-            <div class="seat-group">
+        // Guest 1 always carries the group name
+        const isPrimary = i === 1;
+        const nameValue = isPrimary ? groupName : seat.name;
 
-                <label>Guest ${i}</label>
+        html += `
+            <div class="seat-group ${isPrimary ? "seat-primary" : ""}">
+
+                <label for="guestName${i}">Guest ${i}</label>
 
                 <input type="text"
+                    id="guestName${i}"
                     class="guest-name"
                     placeholder="Guest ${i} name"
-                    value="${seat.name}"
+                    value="${escapeHTML(nameValue)}"
+                    ${isPrimary ? "readonly" : ""}
                 />
 
-                <select class="attending">
-
-                    <option value="pending" ${seat.attending === "pending" ? "selected" : ""}>
-                        Not yet decided
-                    </option>
-
-                    <option value="attending" ${seat.attending === "attending" ? "selected" : ""}>
-                        Attending
-                    </option>
-
-                    <option value="not_attending" ${seat.attending === "not_attending" ? "selected" : ""}>
-                        Not attending
-                    </option>
-
+                <select class="attending" aria-label="Guest ${i} attendance">
+                    <option value="pending" ${seat.attending === "pending" ? "selected" : ""}>Not yet decided</option>
+                    <option value="attending" ${seat.attending === "attending" ? "selected" : ""}>Attending</option>
+                    <option value="not_attending" ${seat.attending === "not_attending" ? "selected" : ""}>Not attending</option>
                 </select>
 
             </div>
@@ -551,6 +552,7 @@ async function loadSeats(maxPax) {
     }
 
     container.innerHTML = html;
+    container.scrollTop = 0; // reopen at the top of the guest list
 }
 
 /* SUBMIT RSVP */

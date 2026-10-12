@@ -1295,30 +1295,45 @@
      RSVP MODAL (WITH CONTACT NUMBER)
 ========================================================== -->
 
-    <div id="rsvpModal" class="modal">
-        <div class="modal-content">
+    <div id="rsvpModal" class="modal" role="dialog" aria-labelledby="rsvpGroupName" aria-modal="true">
+        <div class="modal-content rsvp-modal-content">
 
-            <span class="close-modal">&times;</span>
+            <button type="button" class="close-modal" aria-label="Close">&times;</button>
 
             <h2 id="rsvpGroupName">Your Group</h2>
 
             <form id="rsvpForm">
 
-                <!-- CONTACT NUMBER -->
-                <div class="contact-field">
-                    <label>Contact Number</label>
-                    <input type="text" id="contactNumber" placeholder="09XXXXXXXXX" required />
+                <!-- FIXED: contact + notice -->
+                <div class="rsvp-fixed">
+
+                    <div class="contact-field">
+                        <label for="contactNumber">Contact Number</label>
+                        <input
+                                type="tel"
+                                id="contactNumber"
+                                placeholder="09XXXXXXXXX"
+                                inputmode="numeric"
+                                pattern="09[0-9]{9}"
+                                required
+                        />
+                    </div>
+
+                    <p class="rsvp-notice">
+                        Please RSVP according to the number of seats allotted in your invitation,
+                        as your confirmed guest count will serve as the basis for our food and
+                        seating arrangements.
+                    </p>
+
                 </div>
 
-                <!-- GUESTS (JS GENERATED) -->
+                <!-- SCROLLABLE: guests only (JS GENERATED) -->
                 <div id="guestSeatsContainer"></div>
 
-                <button type="submit" class="rsvp-submit">
-                    Save RSVP
-                </button>
+                <!-- FIXED: submit -->
+                <button type="submit" class="rsvp-submit">Save RSVP</button>
 
             </form>
-
         </div>
     </div>
 
