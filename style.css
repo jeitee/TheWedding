@@ -1415,9 +1415,19 @@ button {
     color: var(--text-secondary);
     margin-bottom: 6px;
 }
-.entourage-card.sponsors {
+.entourage-card.sponsors,
+.entourage-card.full {
     grid-column: 1 / -1;
     min-width: 0;
+}
+
+/* Wide screens: fixed 2-column layout.
+   Full-width rows: Pastor, Principal, Secondary, Ring, Coin, Bible, Flower Girls.
+   Paired rows: Parents, Honor Attendants, Groomsmen/Bridesmaids. */
+@media (min-width: 769px) {
+    .entourage-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 .sponsors-grid {
