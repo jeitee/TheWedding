@@ -3544,5 +3544,27 @@ button {
         width:90px;
 
     }
+    .upload-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 14px 32px;
+        background: #b08968;        /* change to match your theme */
+        color: #fff;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        text-decoration: none;
+        border-radius: 50px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
 
+    .upload-btn:hover {
+        background: #9a7452;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .upload-btn:active {
+        transform: translateY(0);
+    }
 }
