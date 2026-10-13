@@ -15,6 +15,125 @@ AOS.init({
 });
 
 /* ==========================================================
+   HERO MONOGRAM ASSEMBLY
+   The monogram breaks into tiles that drift in and assemble.
+   Triggered by the loader (see LOADER below).
+========================================================== */
+
+const heroMono = document.querySelector(".hero-monogram");
+const heroLogo = heroMono ? heroMono.querySelector(".hero-logo") : null;
+const prefersReducedMotion =
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+let logoAssemblyStarted = false;
+
+if (heroMono && heroLogo && !prefersReducedMotion) {
+
+    // Hides the real image until the tiles have assembled
+    heroMono.classList.add("assemble-ready");
+
+    // Failsafe: never leave the monogram hidden if the loader never fires
+    setTimeout(() => {
+        if (!logoAssemblyStarted) {
+            logoAssemblyStarted = true;
+            heroMono.classList.add("assembled");
+        }
+    }, 20000);
+}
+
+async function playLogoAssembly() {
+
+    if (
+        logoAssemblyStarted ||
+        !heroMono ||
+        !heroLogo ||
+        !heroMono.classList.contains("assemble-ready")
+    ) return;
+
+    logoAssemblyStarted = true;
+
+    try {
+        await heroLogo.decode();
+    } catch (e) {
+        /* image already decoded or decode unsupported - continue */
+    }
+
+    const W = heroLogo.offsetWidth;
+    const H = heroLogo.offsetHeight;
+
+    if (!W || !H) {
+        heroMono.classList.add("assembled");
+        return;
+    }
+
+    // Grid of tiles that matches the logo's proportions
+    const COLS = 8;
+    const ROWS = Math.min(10, Math.max(3, Math.round(COLS * H / W)));
+    const tileW = W / COLS;
+    const tileH = H / ROWS;
+
+    const grid = document.createElement("div");
+    grid.className = "logo-assemble";
+    grid.style.left = heroLogo.offsetLeft + "px";
+    grid.style.top = heroLogo.offsetTop + "px";
+    grid.style.width = W + "px";
+    grid.style.height = H + "px";
+
+    const maxCenterDist = Math.hypot(COLS / 2, ROWS / 2);
+    let longest = 0;
+
+    for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+
+            const tile = document.createElement("span");
+            tile.className = "tile";
+
+            // +1px overlap hides hairline seams between tiles
+            tile.style.left = c * tileW + "px";
+            tile.style.top = r * tileH + "px";
+            tile.style.width = tileW + 1 + "px";
+            tile.style.height = tileH + 1 + "px";
+
+            tile.style.backgroundImage = `url("${heroLogo.currentSrc || heroLogo.src}")`;
+            tile.style.backgroundSize = `${W}px ${H}px`;
+            tile.style.backgroundPosition = `${-c * tileW}px ${-r * tileH}px`;
+
+            // Scatter start position, drifting in from all around
+            const angle = Math.random() * Math.PI * 2;
+            const dist = W * (0.5 + Math.random() * 0.8);
+
+            // Centre tiles arrive first, edges last
+            const centerDist = Math.hypot(
+                c + 0.5 - COLS / 2,
+                r + 0.5 - ROWS / 2
+            ) / maxCenterDist;
+
+            const delay = centerDist * 0.9 + Math.random() * 0.25;
+            const dur = 1.3 + Math.random() * 0.5;
+
+            tile.style.setProperty("--dx", Math.cos(angle) * dist + "px");
+            tile.style.setProperty("--dy", Math.sin(angle) * dist + "px");
+            tile.style.setProperty("--rot", (Math.random() * 360 - 180) + "deg");
+            tile.style.setProperty("--delay", delay + "s");
+            tile.style.setProperty("--dur", dur + "s");
+
+            longest = Math.max(longest, delay + dur);
+
+            grid.appendChild(tile);
+        }
+    }
+
+    heroMono.appendChild(grid);
+
+    // When the last tile lands: reveal the real image, fade tiles away
+    setTimeout(() => {
+        heroMono.classList.add("assembled");
+        grid.classList.add("done");
+        setTimeout(() => grid.remove(), 800);
+    }, longest * 1000 + 150);
+}
+
+/* ==========================================================
    LOADER
 ========================================================== */
 
@@ -42,6 +161,9 @@ window.addEventListener("load", () => {
             setTimeout(() => {
                 loader.style.transition = "opacity 1.2s ease";
                 loader.style.opacity = "0";
+
+                // Start the monogram assembly as the envelope fades out
+                setTimeout(playLogoAssembly, 500);
             }, 3800);
 
             setTimeout(() => {
@@ -542,6 +664,7 @@ async function loadSeats(maxPax, groupName = "") {
                 />
 
                 <select class="attending" aria-label="Guest ${i} attendance">
+                    <option value="pending" ${seat.attending === "pending" ? "selected" : ""}>Not yet decided</option>
                     <option value="attending" ${seat.attending === "attending" ? "selected" : ""}>Attending</option>
                     <option value="not_attending" ${seat.attending === "not_attending" ? "selected" : ""}>Not attending</option>
                 </select>
@@ -960,6 +1083,15 @@ if (lightbox) {
 ========================================================== */
 
 document.querySelectorAll(".hero-content *").forEach((el, index) => {
+
+    // The monogram is handled by the logo assembly - leave it untouched,
+    // otherwise this reveal fades the real image in underneath the tiles.
+    if (
+        heroMono &&
+        heroMono.classList.contains("assemble-ready") &&
+        (el === heroMono || heroMono.contains(el))
+    ) return;
+
     el.style.opacity = 0;
 
     setTimeout(() => {

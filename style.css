@@ -262,7 +262,7 @@ button {
 
 /* ==========================================================
    NAVIGATION
-========================================================== */
+========================================================= */
 
 .navbar {
     position: fixed;
@@ -275,8 +275,10 @@ button {
     align-items: center;
     z-index: 999;
     backdrop-filter: blur(15px);
-    background: rgba(255, 255, 255, .45);
-    border-bottom: 1px solid rgba(163, 184, 153, .15);
+    background:
+            rgba(255, 255, 255, .45);
+    border-bottom:
+            1px solid rgba(163, 184, 153, .15);
 }
 
 .navbar-logo {
@@ -289,6 +291,107 @@ button {
 
 .navbar-logo:hover {
     transform: scale(1.05);
+}
+
+/* ----------------------------------------------------------
+   NAV LOGO ANIMATION (same style as the QR upload page)
+   Scoped to .nav-logo so the loader's logo is not affected.
+   Entrance waits for the envelope loader to fade out (~4.2s).
+   Timeline: entrance 4.2s -> float + glow 5.4s -> shimmer 6.5s
+---------------------------------------------------------- */
+
+/* container: entrance + endless gentle float */
+.nav-logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    animation:
+            navLogoEntrance 1.2s cubic-bezier(.22, 1, .36, 1) 4.2s backwards,
+            navLogoFloat 4.5s ease-in-out 5.4s infinite;
+}
+
+/* image: soft sage glow + hover */
+.nav-logo .navbar-logo {
+    animation: navLogoGlow 3.5s ease-in-out 5.4s infinite;
+    transition: transform .4s cubic-bezier(.22, 1, .36, 1);
+}
+
+.nav-logo:hover .navbar-logo {
+    transform: scale(1.08) rotate(-3deg);
+}
+
+.nav-logo .navbar-logo:active {
+    transform: scale(.96);
+}
+
+/* shimmer sweep, masked to the logo's own shape */
+.nav-logo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    background: linear-gradient(
+            105deg,
+            transparent 35%,
+            rgba(255, 255, 255, .95) 50%,
+            transparent 65%
+    );
+    background-size: 300% 100%;
+    background-position: 150% 0;
+    background-repeat: no-repeat;
+
+    -webkit-mask: url("image/logo.png") center / contain no-repeat;
+    mask: url("image/logo.png") center / contain no-repeat;
+
+    transition: transform .4s cubic-bezier(.22, 1, .36, 1);
+    animation: navLogoShimmer 5s ease-in-out 6.5s infinite;
+}
+
+.nav-logo:hover::after {
+    transform: scale(1.08) rotate(-3deg);
+}
+
+@keyframes navLogoEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(-14px) scale(.7);
+        filter: blur(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes navLogoFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-5px); }
+}
+
+@keyframes navLogoGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 0 rgba(163, 184, 153, 0));
+    }
+    50% {
+        filter: drop-shadow(0 0 10px rgba(163, 184, 153, .75));
+    }
+}
+
+@keyframes navLogoShimmer {
+    0%        { background-position: 150% 0; }
+    35%, 100% { background-position: -50% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-logo,
+    .nav-logo .navbar-logo,
+    .nav-logo::after {
+        animation: none;
+    }
 }
 
 .nav-links {
@@ -327,16 +430,23 @@ button {
     font-size: 1.4rem;
 }
 
+
 /* ==========================================================
    HERO SECTION
 ========================================================== */
 
 .hero {
+    /* min-height: 100vh;
+    min-height: 100svh; */
     min-height: 100dvh;
+
     padding-top: 60px;
+
     position: relative;
+
     background:
             url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=80") center center / cover;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -347,16 +457,27 @@ button {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(rgba(47, 47, 47, .45),
-    rgba(110, 127, 101, .35));
+    background:
+            linear-gradient(rgba(47, 47, 47, .45),
+            rgba(110, 127, 101, .35)
+                /* Hints of organic artichoke in the backdrop shade */
+            );
 }
 
+/* .hero-content{
+    position:relative;
+    z-index:5;
+    color:white;
+    max-width:900px;
+    padding:20px;
+} */
 .hero-content {
     position: relative;
     z-index: 5;
     color: white;
     max-width: 900px;
     padding: 100px 20px 20px;
+    /* Added top padding */
 }
 
 .hero-subtitle {
@@ -365,18 +486,24 @@ button {
     margin-bottom: 20px;
     font-size: .95rem;
     text-transform: uppercase;
-    animation: fadeUp 1.2s ease;
+    animation:
+            fadeUp 1.2s ease;
 }
 
 .hero-monogram {
     font-family: 'Cormorant Garamond', serif;
+
     font-size: clamp(2.5rem, 7vw, 6.5rem);
     line-height: 1.1;
     letter-spacing: 0.05em;
+
     color: var(--white);
     margin-bottom: clamp(12px, 2vw, 24px);
+
     text-align: center;
+
     text-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
     animation: zoomIn 1.5s ease;
 }
 
@@ -387,11 +514,191 @@ button {
     margin: 0 auto;
 }
 
+/* ----------------------------------------------------------
+   HERO MONOGRAM - QR PAGE STYLE ANIMATION
+   Same effects as the QR upload logo: entrance, gentle float,
+   sage glow and a shimmer sweep. Uses `.hero .hero-monogram`
+   (higher specificity) so it also overrides the zoomIn set
+   inside the mobile media queries.
+   Default timeline: entrance 4.4s (after loader) -> float and
+   glow 5.8s -> shimmer 6.9s.
+---------------------------------------------------------- */
+
+/* container hugs the logo, so the shimmer layer matches it exactly */
+.hero .hero-monogram {
+    position: relative;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+
+    animation:
+            heroMonoEntrance 1.4s cubic-bezier(.22, 1, .36, 1) 4.4s backwards,
+            heroMonoFloat 4.5s ease-in-out 5.8s infinite;
+}
+
+/* the logo itself: soft sage glow + hover */
+.hero .hero-monogram .hero-logo {
+    position: relative;
+    z-index: 2;
+    animation: heroMonoGlow 3.5s ease-in-out 5.8s infinite;
+    transition: transform .4s cubic-bezier(.22, 1, .36, 1);
+}
+
+.hero .hero-monogram:hover .hero-logo {
+    transform: scale(1.06) rotate(-3deg);
+}
+
+/* shimmer sweep, masked to the logo's own shape */
+.hero .hero-monogram::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+
+    background: linear-gradient(
+            105deg,
+            transparent 35%,
+            rgba(255, 255, 255, .95) 50%,
+            transparent 65%
+    );
+    background-size: 300% 100%;
+    background-position: 150% 0;
+    background-repeat: no-repeat;
+
+    -webkit-mask: url("image/monogram.png") center / contain no-repeat;
+    mask: url("image/monogram.png") center / contain no-repeat;
+
+    transition: transform .4s cubic-bezier(.22, 1, .36, 1);
+    animation: heroMonoShimmer 5s ease-in-out 6.9s infinite;
+}
+
+.hero .hero-monogram:hover::after {
+    transform: scale(1.06) rotate(-3deg);
+}
+
+@keyframes heroMonoEntrance {
+    from {
+        opacity: 0;
+        transform: scale(.75) translateY(-16px);
+        filter: blur(8px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes heroMonoFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+}
+
+@keyframes heroMonoGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 0 rgba(163, 184, 153, 0));
+    }
+    50% {
+        filter: drop-shadow(0 0 18px rgba(163, 184, 153, .8));
+    }
+}
+
+@keyframes heroMonoShimmer {
+    0%        { background-position: 150% 0; }
+    35%, 100% { background-position: -50% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero .hero-monogram,
+    .hero .hero-monogram .hero-logo,
+    .hero .hero-monogram::after {
+        animation: none;
+    }
+}
+
+/* ----------------------------------------------------------
+   HERO MONOGRAM - LOGO ASSEMBLY
+   script.js adds .assemble-ready (hides the real image) and
+   .assembled (tiles have landed). Without JS, or with reduced
+   motion, none of this applies and the effect above is used.
+---------------------------------------------------------- */
+
+/* while assembling: no entrance, real logo hidden, shimmer paused */
+.hero .hero-monogram.assemble-ready {
+    animation: none;
+}
+
+.hero .hero-monogram.assemble-ready .hero-logo {
+    opacity: 0 !important;
+    transition: none !important;
+    animation: none;
+}
+
+.hero .hero-monogram.assemble-ready::after {
+    animation: none;
+}
+
+/* tile layer sits exactly on top of the logo */
+.logo-assemble {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.logo-assemble .tile {
+    position: absolute;
+    background-repeat: no-repeat;
+    will-change: transform, opacity;
+    animation: logoTileIn var(--dur, 1.5s) cubic-bezier(.22, 1, .36, 1) var(--delay, 0s) both;
+}
+
+.logo-assemble.done {
+    opacity: 0;
+    transition: opacity .7s ease;
+}
+
+@keyframes logoTileIn {
+    from {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(.3);
+    }
+    55% {
+        opacity: 1;
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+}
+
+/* once assembled: reveal the real logo, then float, glow and shimmer */
+.hero .hero-monogram.assemble-ready.assembled {
+    animation: heroMonoFloat 4.5s ease-in-out .8s infinite;
+}
+
+.hero .hero-monogram.assemble-ready.assembled .hero-logo {
+    opacity: 1 !important;
+    transition: transform .4s cubic-bezier(.22, 1, .36, 1) !important;
+    animation: heroMonoGlow 3.5s ease-in-out .8s infinite;
+}
+
+.hero .hero-monogram.assemble-ready.assembled::after {
+    animation: heroMonoShimmer 5s ease-in-out 1.8s infinite;
+}
+
 .couple-name {
+    /*font-family:*/
+    /*    'Cormorant Garamond',*/
+    /*    serif;*/
     font-size: 4rem;
     font-weight: 500;
     margin-bottom: 20px;
-    animation: fadeUp 1.6s ease;
+    animation:
+            fadeUp 1.6s ease;
+}
+
+.couple-name {
     text-align: center;
     color: #fff;
     margin-top: 20px;
@@ -405,7 +712,15 @@ button {
     margin-bottom: 20px;
     font-size: 2.0rem;
     text-transform: uppercase;
-    animation: fadeUp 1.2s ease;
+    animation:
+            fadeUp 1.2s ease;
+    /*display: block;*/
+    /*font-family: 'Cormorant Garamond', serif;*/
+    /*letter-spacing: 2px;*/
+    /*font-size: 2.6rem;*/
+    /*font-weight: 500;*/
+    /*line-height: 1.2;*/
+    /*text-transform: capitalize;*/
 }
 
 .ampersand {
@@ -421,7 +736,8 @@ button {
     font-size: 1.2rem;
     letter-spacing: 2px;
     margin-bottom: 35px;
-    animation: fadeUp 1.8s ease;
+    animation:
+            fadeUp 1.8s ease;
 }
 
 .bible-verse {
@@ -436,6 +752,7 @@ button {
     margin-right: auto;
     line-height: 1.6;
     letter-spacing: 0.4px;
+
     opacity: 0;
     transform: translateY(15px);
     animation: fadeInVerse 1.5s ease forwards;
@@ -474,7 +791,6 @@ button {
         transform: translateY(0);
     }
 }
-
 /* ==========================================================
    BUTTONS
 ========================================================== */

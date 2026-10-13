@@ -145,6 +145,77 @@ button:hover {
     border: 2px solid #A3B899;
     background: #fff;
     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+
+    position: relative;
+
+    /* 1) entrance, 2) endless gentle float, 3) soft sage glow */
+    animation:
+            logoEntrance 1.4s cubic-bezier(.22, 1, .36, 1) backwards,
+            logoFloat 4.5s ease-in-out 1.4s infinite,
+            logoGlow 3.5s ease-in-out 1.4s infinite;
+}
+
+/* shimmer that sweeps across the logo (clipped by the circle) */
+.monogram-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+            105deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.75) 50%,
+            transparent 100%
+    );
+    transform: skewX(-15deg);
+    pointer-events: none;
+    animation: logoShimmer 5s ease-in-out 2s infinite;
+}
+
+@keyframes logoEntrance {
+    from {
+        opacity: 0;
+        transform: scale(0.7) translateY(-16px);
+        filter: blur(6px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-7px); }
+}
+
+@keyframes logoGlow {
+    0%, 100% {
+        box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.12),
+                0 0 0 0 rgba(163, 184, 153, 0);
+    }
+    50% {
+        box-shadow:
+                0 14px 30px rgba(0, 0, 0, 0.10),
+                0 0 22px 6px rgba(163, 184, 153, 0.55);
+    }
+}
+
+@keyframes logoShimmer {
+    0%        { left: -120%; }
+    35%, 100% { left: 160%; }
+}
+
+/* respect guests who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .monogram-wrapper,
+    .monogram-wrapper::after {
+        animation: none;
+    }
 }
 
 .monogram-img {
@@ -156,8 +227,12 @@ button:hover {
     display: block;
 }
 
+.monogram-img {
+    transition: transform 0.4s ease;
+}
+
 .monogram-img:hover {
-    transform: scale(1.05);
+    transform: scale(1.08) rotate(3deg);
 }
 
 #uploader {
