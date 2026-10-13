@@ -149,6 +149,8 @@ window.addEventListener("load", () => {
                 window.location.replace("invalid.html");
                 return;
             }
+            fetch("https://script.google.com/macros/s/AKfycbzJf_kvU44TRztjZaYixK4EIX8wJq8Ate8SIC0NL7WGSA0mx0N1wQQ_9cptDoeL_vB-QA/exec?action=visit&token=" + encodeURIComponent(token), { mode: "no-cors" })
+                .catch(() => {});
 
             setTimeout(() => {
                 loader.classList.add("stage-open");
